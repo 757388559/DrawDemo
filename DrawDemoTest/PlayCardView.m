@@ -41,9 +41,7 @@
 // Only override drawRect: if you perform custom drawing.
 - (void)drawRect:(CGRect)rect {
     
-    UIImage *image = [self drawCharactorCircle];
-
-    
+    [self drawCharactorCircle];
 
 }
 

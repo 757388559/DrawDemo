@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "PlayCardView.h"
-#import "RunByRun.h"
 #import "UIImage+Customer.h"
 #import "UIView+CGRect.h"
 
@@ -75,35 +74,6 @@
         [self.view addSubview:_playCardView];
     }
     return _playCardView;
-}
-
-
-- (void)buttonWithActivityView {
-    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.button setTitle:@"创建账号" forState:UIControlStateNormal];
-    [self.button setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    self.button.frame = CGRectMake(20, 100, 375-40, 40);
-    [self.view addSubview:self.button];
-    self.button.backgroundColor = [UIColor whiteColor];
-    
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self.button setTitle:@"  " forState:UIControlStateNormal];
-        CGPoint center = self.button.titleLabel.center;
-        UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        view.center = center;
-        view.hidesWhenStopped = YES;
-        [self.button addSubview:view];
-        [view startAnimating];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-            [self.button setTitle:@"登陆成功" forState:UIControlStateNormal];
-            [view stopAnimating];
-        });
-        
-    });
 }
 
 
