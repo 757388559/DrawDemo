@@ -255,11 +255,7 @@
     CGContextTranslateCTM(context, self.bounds.size.width, self.bounds.size.height);
     CGContextRotateCTM(context, M_PI);
     [attrStr drawInRect:textBounds];
-    
-    
-    
-    
-    
+
 }
 
 

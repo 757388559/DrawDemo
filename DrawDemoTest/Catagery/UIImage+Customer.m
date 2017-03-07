@@ -106,7 +106,6 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     [view.layer renderInContext:context];
     
-    
     CGRect sourceRect = view.bounds;
     CGRect destRect = CGRectZero;
  
@@ -263,6 +262,44 @@
     CGImageRef imageRef = CGBitmapContextCreateImage(context);
     UIImage *image = [UIImage imageWithCGImage:imageRef];
     // Clean up CGContextRelease(context); CFRelease(imageRef);
+    return image;
+}
+
++ (UIImage *)circleImage:(UIImage *)sourceImage targetSize:(CGSize)targetSize {
+    
+    // 直径
+    CGFloat diameter = MIN(targetSize.width, targetSize.height);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(diameter, diameter), NO, 0.0);
+    // 剪切圆形
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextAddArc(context, diameter/2, diameter/2, diameter/2, 0, M_PI * 2, 1);
+    CGContextClip(context);
+    // 画图
+    [sourceImage drawInRect:[UIView sizeMakeRect:targetSize]];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
++ (UIImage *)circleWithImage:(UIImage *)sourceImage targetSize:(CGSize)targetSize borderColor:(UIColor *)borderColor borderWidth:(CGFloat)width {
+    
+    CGFloat diameterRect = MIN(targetSize.width, targetSize.height);
+    CGFloat diameterImage = diameterRect-width;
+    CGSize destSizeImage = CGSizeMake(diameterImage, diameterImage);
+    
+    // 圆形图对应的矩形框
+    CGRect destRect = [UIView rectAroundCenter:CGPointMake(diameterRect/2, diameterRect/2) size:destSizeImage];
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(diameterRect, diameterRect), NO, 0.0);
+    UIImage *circleImage = [self circleImage:sourceImage targetSize:destSizeImage];
+    // 外边框
+    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:[UIView rectGetCenter:[UIView sizeMakeRect:CGSizeMake(diameterRect, diameterRect)]] radius:(diameterRect-width)/2 startAngle:0 endAngle:M_PI*2 clockwise:1];
+    [bezierPath setLineWidth:width];
+    [borderColor setStroke];
+    [bezierPath stroke];
+    // 画图
+    [circleImage drawInRect:destRect];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     return image;
 }
 

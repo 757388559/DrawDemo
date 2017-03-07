@@ -39,7 +39,9 @@
  @param useFitting yes-fit  no-fill
  @return 缩略图
  */
-+ (UIImage *)thumbnailImageWithImage:(UIImage *)sourceImage size:(CGSize)targetSize useFitting:(BOOL)useFitting;
++ (UIImage *)thumbnailImageWithImage:(UIImage *)sourceImage
+                                size:(CGSize)targetSize
+                          useFitting:(BOOL)useFitting;
 
 
 /**
@@ -61,6 +63,13 @@
  */
 + (UIImage *)extractingSubimageWithRetinaImage:(UIImage *)sourceImage subRect:(CGRect)subRect;
 
+/**
+ 提取子图
+
+ @param view 原始view
+ @param subRect 包含在view中的rect
+ @return 原始view中subrect部分生成图片
+ */
 + (UIImage *)extractingSubImageInView:(UIView *)view subRect:(CGRect)subRect;
 
 // convert an image to grayscale
@@ -81,7 +90,9 @@
  @param markStr 水印
  @return 新的带水印的图片
  */
-+ (UIImage *)waterMarkingAnImage:(UIImage *)sourceImage targetSize:(CGSize)targetSize markStr:(NSString *)markStr;
++ (UIImage *)waterMarkingAnImage:(UIImage *)sourceImage
+                      targetSize:(CGSize)targetSize
+                         markStr:(NSString *)markStr;
 
 /**
  将RGB图片转成Data
@@ -91,6 +102,37 @@
  */
 + (NSData *)bytesFromRGBImage:(UIImage *)sourceImage;
 
+/**
+ 将data转换成RGB图片
+
+ @param data imageData
+ @param targetSize image reall size
+ @return A new image
+ */
 + (UIImage *)imageFromBytes:(NSData *)data targetSize:(CGSize)targetSize;
+
+/**
+ 生成圆形图片
+
+ @param sourceImage 原始图片
+ @param targetSize 要生成的圆形图片的大小
+ @return A new circle graph
+ */
++ (UIImage *)circleImage:(UIImage *)sourceImage targetSize:(CGSize)targetSize;
+/**
+ 带边框的原型图片
+
+ @param sourceImage 原始图片
+ @param targetSize 要生成的圆形图片的大小(包括边框厚度)
+ @param borderColor 边框颜色
+ @param width 边框厚度
+ @return 带圆框的图片
+ */
++ (UIImage *)circleWithImage:(UIImage *)sourceImage
+                  targetSize:(CGSize)targetSize
+                 borderColor:(UIColor *)borderColor
+                 borderWidth:(CGFloat)width;
+
+
 
 @end
