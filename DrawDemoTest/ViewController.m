@@ -37,13 +37,22 @@
     [super viewDidLoad];
     
     self.imageView.frame = CGRectMake(10, 80, 200, 150);
-    UIImage *image = [UIImage imageNamed:@"bg20161102.jpg"];
+    UIImage *image = [UIImage imageNamed:@"bg20161219.jpg"];
     self.imageView.image = image;
     
-    UIImage *subImage = [UIImage extractingSubimageWithSourceImage:image subRect:CGRectMake(0, 0, 100, 75)];
-    subImage = [UIImage exractingSubimageWithRetinaImage:image subRect:CGRectMake(0, 0, 100, 75)];
+    UIImage *subImage ;
+//   subImage = [UIImage extractingSubimageWithSourceImage:image subRect:CGRectMake(0, 0, 100, 75)];
+//    subImage = [UIImage extractingSubimageWithRetinaImage:image subRect:CGRectMake(100, 100, 200, 75)];
+//   UIImage *subImage = [UIImage extractingSubImageInView:self.imageView subRect:CGRectMake(150, 100, 200, 150)];
+    
+//    subImage = [UIImage grayscaleOfImage:image];
+    subImage = [UIImage waterMarkingAnImage:image targetSize:image.size markStr:@"这是水印"];
     self.showImageView.frame = CGRectMake(10, 240, subImage.size.width, subImage.size.height);
     self.showImageView.image = subImage;
+    self.showImageView.backgroundColor = [UIColor greenColor];
+    
+    
+    
     
 }
 

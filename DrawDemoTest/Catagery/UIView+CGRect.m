@@ -32,8 +32,8 @@
 
 + (CGRect)rectAroundCenter:(CGPoint)center size:(CGSize)size {
     
-    CGFloat originX = center.x + size.width/2;
-    CGFloat originY = center.y + size.height/2;
+    CGFloat originX = center.x - size.width/2;
+    CGFloat originY = center.y - size.height/2;
     
     CGPoint origin = CGPointMake(originX,originY);
     
@@ -113,6 +113,7 @@
     
     return factor;
 }
+
 
 + (CGRect)rectByFillingRect:(CGRect)sourceRect destRect:(CGRect)destRect {
     

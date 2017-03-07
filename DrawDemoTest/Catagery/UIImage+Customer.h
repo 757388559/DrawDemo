@@ -59,11 +59,38 @@
  @param subRect 提取的位置和大小
  @return 提取到的图片
  */
-+ (UIImage *)exractingSubimageWithRetinaImage:(UIImage *)sourceImage subRect:(CGRect)subRect;
++ (UIImage *)extractingSubimageWithRetinaImage:(UIImage *)sourceImage subRect:(CGRect)subRect;
 
++ (UIImage *)extractingSubImageInView:(UIView *)view subRect:(CGRect)subRect;
 
 // convert an image to grayscale
 
+/**
+ 将一个图片转换成灰色图片
 
+ @param sourceImage 原图片
+ @return 新生成的灰色图片
+ */
++ (UIImage *)grayscaleOfImage:(UIImage *)sourceImage;
+
+/**
+ 图片添加水印
+
+ @param sourceImage 原图
+ @param targetSize 目标尺寸
+ @param markStr 水印
+ @return 新的带水印的图片
+ */
++ (UIImage *)waterMarkingAnImage:(UIImage *)sourceImage targetSize:(CGSize)targetSize markStr:(NSString *)markStr;
+
+/**
+ 将RGB图片转成Data
+
+ @param sourceImage 图片
+ @return 图片的二进制数据
+ */
++ (NSData *)bytesFromRGBImage:(UIImage *)sourceImage;
+
++ (UIImage *)imageFromBytes:(NSData *)data targetSize:(CGSize)targetSize;
 
 @end
