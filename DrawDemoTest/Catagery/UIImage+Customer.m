@@ -137,18 +137,14 @@
     // Extents are integers
     int width = sourceImage.size.width;
     int height = sourceImage.size.height;
-    
     // 创建context: 1byte/pix 、 no alpha
-    CGContextRef contextRef = CGBitmapContextCreate(NULL, width, height, 8, width, colorSpaceRef, (CGBitmapInfo)kCGImageAlphaNone);
+    CGContextRef contextRef = CGBitmapContextCreate(NULL, width, height, 8, 0, colorSpaceRef, (CGBitmapInfo)kCGImageAlphaNone);
     // 释放
     CGColorSpaceRelease(colorSpaceRef);
-    
-    if (contextRef == NULL)
-    {
+    if (contextRef == NULL) {
         NSLog(@"Error building grayscale bitmap context");
         return nil;
     }
-    
     // 复制图片使用新的colorspace
     CGRect rect = [UIView sizeMakeRect:sourceImage.size];
     CGContextDrawImage(contextRef, rect, sourceImage.CGImage);
@@ -176,11 +172,11 @@
     CGContextTranslateCTM(context, center.x, center.y);
     CGContextRotateCTM(context, M_PI_4);
     CGContextTranslateCTM(context, -center.x, -center.y);
+
+    // Drawing markstr
     UIFont *font = [UIFont systemFontOfSize:20];
     CGSize size = [markStr sizeWithAttributes:@{NSFontAttributeName:font}];
     CGRect markStrRect = [UIView rectCenteredInRect:[UIView sizeMakeRect:size] mainRect:targetRect];
-    
-    // Drawing markstr
     CGContextSetBlendMode(context, kCGBlendModeDifference);
     [markStr drawInRect:markStrRect withAttributes:@{NSFontAttributeName:font , NSForegroundColorAttributeName:[UIColor whiteColor]}];
     

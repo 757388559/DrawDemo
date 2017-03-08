@@ -41,12 +41,13 @@
 // Only override drawRect: if you perform custom drawing.
 - (void)drawRect:(CGRect)rect {
     
-    [self drawCharactorCircle];
-
+    [self drawCharactorCircleNature];
+    
+    [self drawLine];
 }
 
-// 圆圈字母
-- (UIImage *)drawCharactorCircle {
+// 圆圈字母图片
+- (UIImage *)drawCharactorCircleNature {
     
     NSString *charactorStr = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     UIGraphicsBeginImageContext(self.bounds.size);
@@ -69,20 +70,9 @@
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-        [self addSubview:[[UIImageView alloc] initWithImage:image]];
+    [self addSubview:[[UIImageView alloc] initWithImage:image]];
     return image;
 }
-
-// 翻转
-- (void)flipContext {
-    
-}
-
-- (void)drawBannyImage {
-    
-    
-}
-
 
 // bitmapImage
 - (void)drawBitmapImage:(CGRect)rect {
@@ -112,7 +102,7 @@
     // UIGraphicsPopContext();
     // Convert to image
     CGImageRef imageRef = CGBitmapContextCreateImage(context);
-    UIImage *image = [UIImage imageWithCGImage:imageRef];
+//    UIImage *image = [UIImage imageWithCGImage:imageRef];
     // Clean up
     CGColorSpaceRelease(colorRef);
     CGContextRelease(context);

@@ -45,8 +45,8 @@
     CGPoint sourceCenter = [self rectGetCenter:rect];
     CGPoint destCenter = [self rectGetCenter:mainRect];
     
-    CGFloat dx = destCenter.x + sourceCenter.x;
-    CGFloat dy = destCenter.y + sourceCenter.y;
+    CGFloat dx = destCenter.x - sourceCenter.x;
+    CGFloat dy = destCenter.y - sourceCenter.y;
     
     return CGRectOffset(rect, dx, dy);
 }

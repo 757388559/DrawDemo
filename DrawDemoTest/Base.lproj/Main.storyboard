@@ -21,13 +21,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ubf-pY-vwB" customClass="PlayCardView">
-                                <rect key="frame" x="9" y="48" width="359" height="599"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ubf-pY-vwB" customClass="PlayCardView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" red="0.98165076971054077" green="0.95715779832696501" blue="0.96351299258289091" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.62608327760000004" blue="0.060405296169999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Ubf-pY-vwB" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="QkI-T7-Gdd"/>
+                            <constraint firstItem="Ubf-pY-vwB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SeF-kO-qab"/>
+                            <constraint firstAttribute="trailing" secondItem="Ubf-pY-vwB" secondAttribute="trailing" id="wHS-2X-Fzf"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ubf-pY-vwB" secondAttribute="bottom" id="xQ4-s6-r0I"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="playCardView" destination="Ubf-pY-vwB" id="L90-LR-7lR"/>
@@ -35,7 +40,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+            <point key="canvasLocation" x="129" y="-63"/>
         </scene>
     </scenes>
 </document>

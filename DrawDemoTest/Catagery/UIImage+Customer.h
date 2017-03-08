@@ -55,7 +55,7 @@
 
 
 /**
- 提取子图 Retina屏幕
+ 提取图片子图 Retina屏幕
 
  @param sourceImage 用来提取的图片
  @param subRect 提取的位置和大小
@@ -64,7 +64,7 @@
 + (UIImage *)extractingSubimageWithRetinaImage:(UIImage *)sourceImage subRect:(CGRect)subRect;
 
 /**
- 提取子图
+ 提取view的子图
 
  @param view 原始view
  @param subRect 包含在view中的rect
