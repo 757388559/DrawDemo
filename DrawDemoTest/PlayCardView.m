@@ -41,9 +41,7 @@
 // Only override drawRect: if you perform custom drawing.
 - (void)drawRect:(CGRect)rect {
     
-    [self drawCharactorCircleNature];
-    
-    [self drawLine];
+
 }
 
 // 圆圈字母图片

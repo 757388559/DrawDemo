@@ -11,7 +11,7 @@
 @implementation UIView (CGRect)
 
 
-+ (CGRect)rectMakeRect:(CGPoint)origin size:(CGSize)size {
++ (CGRect)rectMakeWithOrigin:(CGPoint)origin size:(CGSize)size {
     
     return CGRectMake(origin.x, origin.y, size.width, size.height);
 }
@@ -37,7 +37,7 @@
     
     CGPoint origin = CGPointMake(originX,originY);
     
-    return [self rectMakeRect:origin size:size];
+    return [self rectMakeWithOrigin:origin size:size];
 }
 
 + (CGRect)rectCenteredInRect:(CGRect)rect mainRect:(CGRect)mainRect {
@@ -53,19 +53,6 @@
 
 
 // fit
-
-/**
- 缩放
-
- @param size 给定的size
- @param factor 缩放因子(倍数)
- @return 缩放之后的size
- */
-+ (CGSize)sizeScaleByFactor:(CGSize)size factor:(CGFloat)factor {
-    
-    return CGSizeMake(size.width * factor, size.height * factor);
-}
-
 
 /**
  fitting a size to a destination
@@ -126,7 +113,38 @@
     return rect;
 }
 
+// scaled
 
+/**
+ 缩放
+ 
+ @param size 给定的size
+ @param factor 缩放因子(倍数)
+ @return 缩放之后的size
+ */
++ (CGSize)sizeScaleByFactor:(CGSize)size factor:(CGFloat)factor {
+    
+    return CGSizeMake(size.width * factor, size.height * factor);
+}
 
++ (CGRect)rectByScale:(CGFloat)scale sourceRect:(CGRect)sourceRect {
+    
+    CGSize destSize = CGSizeMake(sourceRect.size.width*scale, sourceRect.size.height*scale);
+    
+    return [self rectMakeWithOrigin:sourceRect.origin size:destSize];
+}
+
++ (UIEdgeInsets)rectBuildInsetsWithAlignRect:(CGRect)alignmentRect sourceRect:(CGRect)sourceRect {
+    
+    // Ensure alignment rect is fully within source rect
+    CGRect targetRect = CGRectIntersection(alignmentRect, sourceRect);
+    // Caculate insets
+    UIEdgeInsets insets;
+    insets.top = CGRectGetMinY(targetRect) - CGRectGetMinY(sourceRect);
+    insets.left = CGRectGetMinX(targetRect) - CGRectGetMinX(sourceRect);
+    insets.bottom = CGRectGetMaxY(sourceRect) - CGRectGetMaxY(targetRect);
+    insets.right = CGRectGetMaxX(sourceRect) - CGRectGetMaxX(targetRect);
+    return insets;
+}
 
 @end

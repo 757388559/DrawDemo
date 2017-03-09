@@ -47,7 +47,7 @@
     // 生成纯颜色的图片
 //    subImage = [UIImage swatchWithColor:[UIColor blueColor] size:CGSizeMake(100, 100)];
     // 缩略图
-//    subImage = [UIImage thumbnailImageWithImage:image size:CGSizeMake(300, 100)];
+    subImage = [UIImage thumbnailImageWithImage:image size:CGSizeMake(300, 100)];
     
     // 提取子视图
 //    subImage = [UIImage extractingSubimageWithRetinaImage:image subRect:CGRectMake(150,100, 100, 100)];
@@ -60,7 +60,7 @@
 //    subImage = [UIImage grayscaleOfImage:image];
     
     // 水印
-    subImage = [UIImage waterMarkingAnImage:image targetSize:CGSizeMake(200, 200) markStr:@"这是水印"];
+//    subImage = [UIImage waterMarkingAnImage:image targetSize:CGSizeMake(200, 200) markStr:@"这是水印"];
 
     // data 转换
 //    NSData *data = [UIImage bytesFromRGBImage:image];
@@ -76,10 +76,7 @@
     
     self.showImageView.frame = CGRectMake(10, CGRectGetMaxY(self.sourceImageView.frame)+20, subImage.size.width, subImage.size.height);
     self.showImageView.image = subImage;
-    
-    
-    
-    
+
     
 }
 

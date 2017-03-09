@@ -19,7 +19,7 @@
  @param size 大小
  @return rect
  */
-+ (CGRect)rectMakeRect:(CGPoint)origin size:(CGSize)size;
++ (CGRect)rectMakeWithOrigin:(CGPoint)origin size:(CGSize)size;
 
 
 /**
@@ -68,15 +68,6 @@
 + (CGFloat)aspectScaleFit:(CGSize)sourceSize destRect:(CGRect)destRect;
 
 /**
- 缩放尺寸
- 
- @param size 给定的size
- @param factor 缩放因子
- @return 缩放之后的size
- */
-+ (CGSize)sizeScaleByFactor:(CGSize)size factor:(CGFloat)factor;
-
-/**
  fitting a rect
  
  @param sourceRect 给定矩形
@@ -106,6 +97,36 @@
  */
 + (CGRect)rectByFillingRect:(CGRect)sourceRect destRect:(CGRect)destRect;
 
+// scaled
+
+/**
+ scale size
+ 
+ @param size source size
+ @param factor 缩放因子
+ @return 缩放之后的size
+ */
++ (CGSize)sizeScaleByFactor:(CGSize)size factor:(CGFloat)factor;
+
+/**
+ scale one Rect
+
+ @param scale 缩放比例
+ @param sourceRect Source Rect
+ @return new scaled Rect
+ */
++ (CGRect)rectByScale:(CGFloat)scale sourceRect:(CGRect)sourceRect;
+
+// insets
+
+/**
+ bulid insets for rect
+
+ @param alignmentRect aligned rect
+ @param sourceRect source Rect
+ @return <#return value description#>
+ */
++ (UIEdgeInsets)rectBuildInsetsWithAlignRect:(CGRect)alignmentRect sourceRect:(CGRect)sourceRect;
 
 
 @end
