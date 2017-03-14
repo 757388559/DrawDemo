@@ -7,7 +7,6 @@
 //
 
 #import "UIImage+Customer.h"
-#import "UIView+CGRect.h"
 
 @implementation UIImage (Customer)
 
@@ -56,13 +55,13 @@
     UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
     
     // 目标
-    CGRect targetRect = [UIView sizeMakeRect:targetSize];
+    CGRect targetRect = SizeMakeRect(targetSize);
     
     // 图片的bounds
-    CGRect naturalRect = [UIView sizeMakeRect:sourceImage.size];
+    CGRect naturalRect = SizeMakeRect(sourceImage.size);
     
     // fit/fill 后的rect
-    CGRect destanitionRect = useFitting ? [UIView rectByFittingInRect:naturalRect destRect:targetRect] : [UIView rectByFillingRect:naturalRect destRect:targetRect];
+    CGRect destanitionRect = useFitting ? RectByFittingInRect(naturalRect, targetRect) : RectByFillingRect(naturalRect, targetRect);
     
     // Draw the new thumbnail
     [sourceImage drawInRect:destanitionRect];
@@ -146,7 +145,7 @@
         return nil;
     }
     // 复制图片使用新的colorspace
-    CGRect rect = [UIView sizeMakeRect:sourceImage.size];
+    CGRect rect = SizeMakeRect(sourceImage.size);
     CGContextDrawImage(contextRef, rect, sourceImage.CGImage);
     CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);
     UIImage *newImage = [UIImage imageWithCGImage:imageRef];
@@ -163,12 +162,13 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     // Draw the original image into context
-    CGRect targetRect = [UIView sizeMakeRect:targetSize];
-    CGRect imageRect = [UIView rectByFillingRect:[UIView sizeMakeRect:sourceImage.size] destRect:targetRect];
+    CGRect targetRect = SizeMakeRect(targetSize);
+    
+    CGRect imageRect = RectByFillingRect(SizeMakeRect(sourceImage.size), targetRect);
     [sourceImage drawInRect:imageRect];
     
     // rotate the context
-    CGPoint center = [UIView rectGetCenter:targetRect];
+    CGPoint center = RectGetCenter(targetRect);
     CGContextTranslateCTM(context, center.x, center.y);
     CGContextRotateCTM(context, M_PI_4);
     CGContextTranslateCTM(context, -center.x, -center.y);
@@ -176,7 +176,7 @@
     // Drawing markstr
     UIFont *font = [UIFont systemFontOfSize:20];
     CGSize size = [markStr sizeWithAttributes:@{NSFontAttributeName:font}];
-    CGRect markStrRect = [UIView rectCenteredInRect:[UIView sizeMakeRect:size] mainRect:targetRect];
+    CGRect markStrRect = RectCenteredInRect(SizeMakeRect(size), targetRect);
     CGContextSetBlendMode(context, kCGBlendModeDifference);
     [markStr drawInRect:markStrRect withAttributes:@{NSFontAttributeName:font , NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -271,7 +271,7 @@
     CGContextAddArc(context, diameter/2, diameter/2, diameter/2, 0, M_PI * 2, 1);
     CGContextClip(context);
     // 画图
-    [sourceImage drawInRect:[UIView sizeMakeRect:targetSize]];
+    [sourceImage drawInRect:SizeMakeRect(targetSize)];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
@@ -284,12 +284,12 @@
     CGSize destSizeImage = CGSizeMake(diameterImage, diameterImage);
     
     // 圆形图对应的矩形框
-    CGRect destRect = [UIView rectAroundCenter:CGPointMake(diameterRect/2, diameterRect/2) size:destSizeImage];
+    CGRect destRect = RectAroundCenter(CGPointMake(diameterRect/2, diameterRect/2), destSizeImage);
     
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(diameterRect, diameterRect), NO, 0.0);
     UIImage *circleImage = [self circleImage:sourceImage targetSize:destSizeImage];
     // 外边框
-    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:[UIView rectGetCenter:[UIView sizeMakeRect:CGSizeMake(diameterRect, diameterRect)]] radius:(diameterRect-width)/2 startAngle:0 endAngle:M_PI*2 clockwise:1];
+    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithArcCenter:RectGetCenter(SizeMakeRect(CGSizeMake(diameterRect, diameterRect))) radius:(diameterRect-width)/2 startAngle:0 endAngle:M_PI*2 clockwise:1];
     [bezierPath setLineWidth:width];
     [borderColor setStroke];
     [bezierPath stroke];

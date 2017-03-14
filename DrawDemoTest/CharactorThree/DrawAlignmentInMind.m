@@ -7,7 +7,6 @@
 //
 
 #import "DrawAlignmentInMind.h"
-#import "UIView+CGRect.h"
 
 @implementation DrawAlignmentInMind
 
@@ -34,7 +33,7 @@
     [path stroke];
     
     // Fit bunny into a inset , offset rectangle
-    CGRect destinationRect = [UIView rectByScale:.25 sourceRect:targetRect];
+    CGRect destinationRect = RectByScale(.25, targetRect);
     destinationRect.origin.x = 0;
     UIBezierPath *bunny ;
 //    [[UIBezierPath bunnyPath] pathWithinRect:destinationRect];
@@ -64,7 +63,8 @@
     UIImage *initialImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     // Build and apply the insets
-    UIEdgeInsets insets = [UIView rectBuildInsetsWithAlignRect:alignmentRect sourceRect:targetRect];
+    
+    UIEdgeInsets insets = RectBuildInsetsWithAlignRect(alignmentRect, targetRect);
     UIImage *image = [initialImage imageWithAlignmentRectInsets:insets];
     return image;
 }

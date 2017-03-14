@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		0A42F7791E71A3A900466818 /* DrawAlignmentInMind.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42F7781E71A3A900466818 /* DrawAlignmentInMind.m */; };
 		0A42F77B1E71A76B00466818 /* bunny.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A42F77A1E71A76B00466818 /* bunny.png */; };
-		0A48753A1E4E0E7900C7A333 /* UIView+CGRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4875391E4E0E7900C7A333 /* UIView+CGRect.m */; };
+		0A42F7AB1E75959900466818 /* DrawPDFPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42F7AA1E75959900466818 /* DrawPDFPageView.m */; };
+		0A42F7D41E76D62700466818 /* BezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42F7D31E76D62700466818 /* BezierPath.m */; };
+		0A42F7DF1E76E9D000466818 /* CGRectCatagery.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42F7DD1E76E9D000466818 /* CGRectCatagery.m */; };
 		0A85D02A1E5B344100416AC8 /* UIImage+Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85D0291E5B344100416AC8 /* UIImage+Customer.m */; };
 		0A85D0331E5C818300416AC8 /* bg20161102.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A85D02F1E5C818300416AC8 /* bg20161102.jpg */; };
 		0A85D0341E5C818300416AC8 /* bunnyLeft.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0A85D0301E5C818300416AC8 /* bunnyLeft.jpeg */; };
@@ -28,8 +30,13 @@
 		0A42F7771E71A3A900466818 /* DrawAlignmentInMind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawAlignmentInMind.h; sourceTree = "<group>"; };
 		0A42F7781E71A3A900466818 /* DrawAlignmentInMind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawAlignmentInMind.m; sourceTree = "<group>"; };
 		0A42F77A1E71A76B00466818 /* bunny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bunny.png; sourceTree = "<group>"; };
-		0A4875381E4E0E7900C7A333 /* UIView+CGRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CGRect.h"; sourceTree = "<group>"; };
-		0A4875391E4E0E7900C7A333 /* UIView+CGRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CGRect.m"; sourceTree = "<group>"; };
+		0A42F7A91E75959900466818 /* DrawPDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawPDFPageView.h; sourceTree = "<group>"; };
+		0A42F7AA1E75959900466818 /* DrawPDFPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawPDFPageView.m; sourceTree = "<group>"; };
+		0A42F7D21E76D62700466818 /* BezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierPath.h; sourceTree = "<group>"; };
+		0A42F7D31E76D62700466818 /* BezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BezierPath.m; sourceTree = "<group>"; };
+		0A42F7D61E76D8F500466818 /* Header.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.pch; sourceTree = "<group>"; };
+		0A42F7DD1E76E9D000466818 /* CGRectCatagery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGRectCatagery.m; sourceTree = "<group>"; };
+		0A42F7DE1E76E9D000466818 /* CGRectCatagery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGRectCatagery.h; sourceTree = "<group>"; };
 		0A85D0281E5B344100416AC8 /* UIImage+Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Customer.h"; sourceTree = "<group>"; };
 		0A85D0291E5B344100416AC8 /* UIImage+Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Customer.m"; sourceTree = "<group>"; };
 		0A85D02F1E5C818300416AC8 /* bg20161102.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg20161102.jpg; sourceTree = "<group>"; };
@@ -66,15 +73,27 @@
 			children = (
 				0A42F7771E71A3A900466818 /* DrawAlignmentInMind.h */,
 				0A42F7781E71A3A900466818 /* DrawAlignmentInMind.m */,
+				0A42F7A91E75959900466818 /* DrawPDFPageView.h */,
+				0A42F7AA1E75959900466818 /* DrawPDFPageView.m */,
 			);
 			path = CharactorThree;
+			sourceTree = "<group>";
+		};
+		0A42F7D11E76D5F800466818 /* CharactorFour */ = {
+			isa = PBXGroup;
+			children = (
+				0A42F7D21E76D62700466818 /* BezierPath.h */,
+				0A42F7D31E76D62700466818 /* BezierPath.m */,
+			);
+			path = CharactorFour;
 			sourceTree = "<group>";
 		};
 		0A4875371E4E0E2000C7A333 /* Catagery */ = {
 			isa = PBXGroup;
 			children = (
-				0A4875381E4E0E7900C7A333 /* UIView+CGRect.h */,
-				0A4875391E4E0E7900C7A333 /* UIView+CGRect.m */,
+				0A42F7DE1E76E9D000466818 /* CGRectCatagery.h */,
+				0A42F7DD1E76E9D000466818 /* CGRectCatagery.m */,
+				0A42F7D61E76D8F500466818 /* Header.pch */,
 				0A85D0281E5B344100416AC8 /* UIImage+Customer.h */,
 				0A85D0291E5B344100416AC8 /* UIImage+Customer.m */,
 			);
@@ -112,6 +131,7 @@
 		0AF6AF631DDA118E003F3A6D /* DrawDemoTest */ = {
 			isa = PBXGroup;
 			children = (
+				0A42F7D11E76D5F800466818 /* CharactorFour */,
 				0A42F7761E71A31400466818 /* CharactorThree */,
 				0A85D02E1E5BF28400416AC8 /* Resource */,
 				0A4875371E4E0E2000C7A333 /* Catagery */,
@@ -216,9 +236,11 @@
 			files = (
 				0AE6A1591E03E67F00C67817 /* PlayCardView.m in Sources */,
 				0A85D02A1E5B344100416AC8 /* UIImage+Customer.m in Sources */,
-				0A48753A1E4E0E7900C7A333 /* UIView+CGRect.m in Sources */,
 				0AF6AF6C1DDA118E003F3A6D /* ViewController.m in Sources */,
+				0A42F7AB1E75959900466818 /* DrawPDFPageView.m in Sources */,
+				0A42F7DF1E76E9D000466818 /* CGRectCatagery.m in Sources */,
 				0AF6AF691DDA118E003F3A6D /* AppDelegate.m in Sources */,
+				0A42F7D41E76D62700466818 /* BezierPath.m in Sources */,
 				0AF6AF661DDA118E003F3A6D /* main.m in Sources */,
 				0A42F7791E71A3A900466818 /* DrawAlignmentInMind.m in Sources */,
 			);
@@ -338,6 +360,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/DrawDemoTest/Catagery/Header.pch";
 				INFOPLIST_FILE = DrawDemoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = liugangyi.DrawDemoTest;
@@ -349,6 +374,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/DrawDemoTest/Catagery/Header.pch";
 				INFOPLIST_FILE = DrawDemoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = liugangyi.DrawDemoTest;

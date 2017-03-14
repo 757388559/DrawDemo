@@ -1,60 +1,80 @@
 //
-//  UIView+CGRect.h
+//  CGRectCatagery.h
 //  DrawDemoTest
 //
-//  Created by liugangyi on 2017/2/10.
+//  Created by liugangyi on 2017/3/13.
 //  Copyright © 2017年 com.allinmd.cn. All rights reserved.
 //
 
 
-#import <UIKit/UIKit.h>
-
-@interface UIView (CGRect)
-
+#ifndef CGRectCatagery_h
+#define CGRectCatagery_h
+#import <CoreGraphics/CGGeometry.h>
+#import <UIKit/UIGeometry.h>
+#include <stdio.h>
 
 /**
  通过原点的大小生成CGRect
-
+ 
  @param origin 原点
  @param size 大小
  @return rect
  */
-+ (CGRect)rectMakeWithOrigin:(CGPoint)origin size:(CGSize)size;
-
+CGRect RectMakeWithOrigin(CGPoint origin ,CGSize size);
 
 /**
  默认为(0,0)原点的矩形
-
+ 
  @param tagetSize 目标尺寸
  @return 矩形
  */
-+ (CGRect)sizeMakeRect:(CGSize)tagetSize;
+CGRect SizeMakeRect(CGSize tagetSize);
 
 /**
  获取一个rect的中心点
-
+ 
  @param rect Rect
  @return 中心点
  */
-+ (CGPoint)rectGetCenter:(CGRect)rect;
+CGPoint RectGetCenter(CGRect rect);
 
 /**
  中心点和大小生成一个Rect
-
+ 
  @param center 中心点
  @param size 大小Size
  @return 矩形Rect
  */
-+ (CGRect)rectAroundCenter:(CGPoint)center size:(CGSize)size;
+CGRect RectAroundCenter(CGPoint center ,CGSize size);
 
 /**
  同心Rect（类似同心圆）
-
+ 
  @param rect 给定的矩形
  @param mainRect 原始Rect(以他中心点为准)
  @return 同心矩形
  */
-+ (CGRect)rectCenteredInRect:(CGRect)rect mainRect:(CGRect)mainRect;
+CGRect RectCenteredInRect(CGRect rect ,CGRect mainRect);
+// scaled
+
+/**
+ scale size
+ 
+ @param size source size
+ @param factor 缩放因子
+ @return 缩放之后的size
+ */
+CGSize SizeScaleByFactor (CGSize size ,CGFloat factor);
+
+/**
+ scale one Rect
+ 
+ @param scale 缩放比例
+ @param sourceRect Source Rect
+ @return new scaled Rect
+ */
+CGRect RectByScale (CGFloat scale ,CGRect sourceRect);
+
 
 // ------- fitting -------
 
@@ -65,7 +85,7 @@
  @param destRect 目标矩形
  @return 缩放比例
  */
-+ (CGFloat)aspectScaleFit:(CGSize)sourceSize destRect:(CGRect)destRect;
+CGFloat AspectScaleFit (CGSize sourceSize ,CGRect destRect);
 
 /**
  fitting a rect
@@ -74,59 +94,40 @@
  @param destRect 目标矩形
  @return a rect fitting source to destination
  */
-+ (CGRect)rectByFittingInRect:(CGRect)sourceRect destRect:(CGRect)destRect;
-
+CGRect RectByFittingInRect (CGRect sourceRect , CGRect destRect);
 
 // ------- filling --------
 
 /**
  Calculate scale for filling a destination
-
+ 
  @param sourceSize 给定的尺寸
  @param destRect 填充的矩形
  @return a scale
  */
-+ (CGFloat)aspectScaleFill:(CGSize)sourceSize destRect:(CGRect)destRect;
+CGFloat AspectScaleFill (CGSize sourceSize ,CGRect destRect);
 
 /**
  Return a rect that fills the destination
-
+ 
  @param sourceRect source rect
  @param destRect destination rect
  @return  a rect that fills the destination
  */
-+ (CGRect)rectByFillingRect:(CGRect)sourceRect destRect:(CGRect)destRect;
-
-// scaled
-
-/**
- scale size
- 
- @param size source size
- @param factor 缩放因子
- @return 缩放之后的size
- */
-+ (CGSize)sizeScaleByFactor:(CGSize)size factor:(CGFloat)factor;
-
-/**
- scale one Rect
-
- @param scale 缩放比例
- @param sourceRect Source Rect
- @return new scaled Rect
- */
-+ (CGRect)rectByScale:(CGFloat)scale sourceRect:(CGRect)sourceRect;
-
+CGRect RectByFillingRect (CGRect sourceRect ,CGRect destRect);
 // insets
 
 /**
  bulid insets for rect
-
+ 
  @param alignmentRect aligned rect
  @param sourceRect source Rect
  @return <#return value description#>
  */
-+ (UIEdgeInsets)rectBuildInsetsWithAlignRect:(CGRect)alignmentRect sourceRect:(CGRect)sourceRect;
+UIEdgeInsets RectBuildInsetsWithAlignRect (CGRect alignmentRect ,CGRect sourceRect);
 
 
-@end
+#endif /* CGRectCatagery_h */
+
+
+
