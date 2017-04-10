@@ -68,7 +68,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A42F7761E71A31400466818 /* CharactorThree */ = {
+		0A42F7761E71A31400466818 /* PracticeThree */ = {
 			isa = PBXGroup;
 			children = (
 				0A42F7771E71A3A900466818 /* DrawAlignmentInMind.h */,
@@ -76,15 +76,17 @@
 				0A42F7A91E75959900466818 /* DrawPDFPageView.h */,
 				0A42F7AA1E75959900466818 /* DrawPDFPageView.m */,
 			);
+			name = PracticeThree;
 			path = CharactorThree;
 			sourceTree = "<group>";
 		};
-		0A42F7D11E76D5F800466818 /* CharactorFour */ = {
+		0A42F7D11E76D5F800466818 /* PracticeFour */ = {
 			isa = PBXGroup;
 			children = (
 				0A42F7D21E76D62700466818 /* BezierPath.h */,
 				0A42F7D31E76D62700466818 /* BezierPath.m */,
 			);
+			name = PracticeFour;
 			path = CharactorFour;
 			sourceTree = "<group>";
 		};
@@ -131,8 +133,8 @@
 		0AF6AF631DDA118E003F3A6D /* DrawDemoTest */ = {
 			isa = PBXGroup;
 			children = (
-				0A42F7D11E76D5F800466818 /* CharactorFour */,
-				0A42F7761E71A31400466818 /* CharactorThree */,
+				0A42F7D11E76D5F800466818 /* PracticeFour */,
+				0A42F7761E71A31400466818 /* PracticeThree */,
 				0A85D02E1E5BF28400416AC8 /* Resource */,
 				0A4875371E4E0E2000C7A333 /* Catagery */,
 				0AF6AF671DDA118E003F3A6D /* AppDelegate.h */,
