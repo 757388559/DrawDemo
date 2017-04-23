@@ -69,7 +69,7 @@ void OffsetPath(UIBezierPath *path, CGSize offset){
 void MovePathToPoint(UIBezierPath *path, CGPoint point) {
     CGRect bounds = PathBoundingBox(path);
     CGPoint p1 = bounds.origin;
-    CGPoint p2 = destPoint;
+    CGPoint p2 = point;
     CGSize vector = CGSizeMake(p2.x - p1.x, p2.y - p1.y);
     OffsetPath(path, vector);
 }
