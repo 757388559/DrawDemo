@@ -17,7 +17,7 @@
     
 }
 
-// 3-9练习
+// 
 - (UIImage *)buildInsets:(CGRect)targetRect {
     
     UIBezierPath *path;

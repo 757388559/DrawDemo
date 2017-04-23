@@ -1,5 +1,5 @@
 //
-//  BezierPath.h
+//  BezierPathPratice.h
 //  DrawDemoTest
 //
 //  Created by liugangyi on 2017/3/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BezierPath : UIView
+@interface BezierPathPratice : UIView
 
 @end

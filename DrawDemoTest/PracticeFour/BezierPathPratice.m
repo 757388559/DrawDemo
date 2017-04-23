@@ -1,24 +1,45 @@
 //
-//  BezierPath.m
+//  BezierPathPratice.m
 //  DrawDemoTest
 //
 //  Created by liugangyi on 2017/3/13.
 //  Copyright © 2017年 com.allinmd.cn. All rights reserved.
 //
 
-#import "BezierPath.h"
+#import "BezierPathPratice.h"
 
-@implementation BezierPath
-
+@implementation BezierPathPratice
 
 - (void)drawRect:(CGRect)rect {
     // Drawing code
+   
     
-    [self createALaughFace:CGRectMake(20, rect.origin.x+rect.size.height/4, 300, 300)];
+    // 笑脸
+//    [self createALaughFace:CGRectMake(20, rect.origin.x+rect.size.height/4, 300, 300)];
+    
+//    [self aaaa];
+    
+}
+
+- (void)showPathProgression:(UIBezierPath *)path maxPercent:(CGFloat)maxPercent {
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) {
+        NSLog(@"Error:No context to draw to");
+        return;
+    }
+    
+    // Bound the percent value
+    CGFloat maximunPercent = fmaxf(fminf(maxPercent, 1.0f), 0.0f);
+    CGContextSaveGState(context);
+    
+    // One sample every six points
     
 }
 
 
+
+// Laugh Face
 - (void)createALaughFace:(CGRect)rect {
     
     CGRect fullRect = (CGRect){.size = rect.size};
@@ -57,6 +78,26 @@
     [bezierPath stroke];
     
 }
+
+- (void)aaaa {
+    
+    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
+    
+//    [bezierPath moveToPoint:CGPointMake(10, 100)];
+//    [bezierPath addQuadCurveToPoint:CGPointMake(100, 100) controlPoint:CGPointMake(15, 200)];
+//    [bezierPath addCurveToPoint:CGPointMake(300, 100) controlPoint1:CGPointMake(100, 300) controlPoint2:CGPointMake(100, 300)];
+//    [bezierPath addLineToPoint:CGPointMake(200, 300)];
+    [bezierPath addArcWithCenter:CGPointMake(200, 200) radius:100 startAngle:0 endAngle:M_PI clockwise:NO];
+    [bezierPath addLineToPoint:CGPointMake(300, 300)];
+    [[UIColor greenColor] setStroke];
+    [bezierPath closePath];
+    [bezierPath stroke];
+    
+    
+    
+    
+}
+
 
 
 
