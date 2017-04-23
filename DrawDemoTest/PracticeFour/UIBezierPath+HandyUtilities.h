@@ -6,37 +6,6 @@
 //  Copyright © 2017年 com.allinmd.cn. All rights reserved.
 //
 
-
-#define NUMBER_OF_BEZIER_SAMPLES    6
-
-typedef CGFloat (^InterpolationBlock)(CGFloat percent);
-
-// Return Bezier Value
-float CubicBezier(float t, float start, float c1, float c2, float end);
-float QuadBezier(float t, float start, float c1, float end);
-
-// Return Bezier Point
-CGPoint CubicBezierPoint(CGFloat t, CGPoint start, CGPoint c1, CGPoint c2, CGPoint end);
-CGPoint QuadBezierPoint(CGFloat t, CGPoint start, CGPoint c1, CGPoint end);
-
-// Calculate Curve Length
-float CubicBezierLength(CGPoint start, CGPoint c1, CGPoint c2, CGPoint end);
-float QuadBezierLength(CGPoint start, CGPoint c1, CGPoint end);
-
-// Element Distance
-CGFloat ElementDistanceFromPoint(BezierElement *element, CGPoint point, CGPoint startPoint);
-
-// Linear Interpolation
-CGPoint InterpolateLineSegment(CGPoint p1, CGPoint p2, CGFloat percent, CGPoint *slope);
-
-// Interpolate along element
-CGPoint InterpolatePointFromElement(BezierElement *element, CGPoint point, CGPoint startPoint, CGFloat percent, CGPoint *slope);
-
-// Ease
-CGFloat EaseIn(CGFloat currentTime, int factor);
-CGFloat EaseOut(CGFloat currentTime, int factor);
-CGFloat EaseInOut(CGFloat currentTime, int factor);
-
 // Bounds
 CGRect PathBoundingBox(UIBezierPath *path);
 CGRect PathBoundingBoxIgnorContolPoints(UIBezierPath *path);
@@ -83,23 +52,23 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
 @property (nonatomic, readonly) CGRect computedBoundsWithLineWidth;
 
 // Stroke/Fill
-- (void) stroke: (CGFloat) width;
-- (void) stroke: (CGFloat) width color: (UIColor *) color;
-- (void) strokeInside: (CGFloat) width;
-- (void) strokeInside: (CGFloat) width color: (UIColor *) color;
-- (void) fill: (UIColor *) fillColor;
-- (void) drawOuterGlow: (UIColor *) fillColor withRadius: (CGFloat) radius;
-- (void) drawInnerGlow: (UIColor *) fillColor withRadius: (CGFloat) radius;
-- (void) addDashes;
-- (void) addDashes: (NSArray *) pattern;
-- (void) applyPathPropertiesToContext;
+- (void)stroke:(CGFloat)width;
+- (void)stroke:(CGFloat)width color:(UIColor *)color;
+- (void)strokeInside:(CGFloat)width;
+- (void)strokeInside:(CGFloat)width color:(UIColor *)color;
+- (void)fill:(UIColor *)fillColor;
+- (void)drawOuterGlow:(UIColor *)fillColor withRadius:(CGFloat)radius;
+- (void)drawInnerGlow:(UIColor *)fillColor withRadius:(CGFloat)radius;
+- (void)addDashes;
+- (void)addDashes:(NSArray *)pattern;
+- (void)applyPathPropertiesToContext;
 
 // Clipping
-- (void) clipToPath; // I hate addClip
-- (void) clipToStroke: (NSUInteger) width;
+- (void)clipToPath; // I hate addClip
+- (void)clipToStroke:(NSUInteger)width;
 
 // Util
-- (UIBezierPath *) safeCopy;
+- (UIBezierPath *)safeCopy;
 
 @end
 

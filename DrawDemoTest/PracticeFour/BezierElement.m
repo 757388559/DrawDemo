@@ -24,7 +24,7 @@
     return self;
 }
 
-+ (instancetype) elementWithPathElement: (CGPathElement) element
++ (instancetype)elementWithPathElement:(CGPathElement)element
 {
     BezierElement *newElement = [[self alloc] init];
     newElement.elementType = element.type;
@@ -59,7 +59,7 @@
     return newElement;
 }
 
-- (instancetype) copyWithZone: (NSZone *) zone
+- (instancetype)copyWithZone:(NSZone *)zone
 {
     BezierElement *theCopy = [[[self class] allocWithZone:zone] init];
     if (theCopy)
@@ -74,7 +74,7 @@
 
 #pragma mark - Path
 
-- (BezierElement *) elementByApplyingBlock: (PathBlock) block
+- (BezierElement *)elementByApplyingBlock:(PathBlock)block
 {
     BezierElement *output = [self copy];
     if (!block)
@@ -89,7 +89,7 @@
     return output;
 }
 
-- (void) addToPath: (UIBezierPath *) path
+- (void)addToPath:(UIBezierPath *)path
 {
     switch (self.elementType)
     {
@@ -115,7 +115,7 @@
 
 #pragma mark - Strings
 
-- (NSString *) stringValue
+- (NSString *)stringValue
 {
     switch (self.elementType)
     {
@@ -133,7 +133,7 @@
     return nil;
 }
 
-- (void) showTheCode
+- (void)showTheCode
 {
     switch (self.elementType)
     {

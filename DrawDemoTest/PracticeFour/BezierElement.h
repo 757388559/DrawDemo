@@ -21,15 +21,15 @@ typedef CGPoint (^PathBlock)(CGPoint point);
 @property (nonatomic, assign) CGPoint controlPoint2;
 
 // Instance creation
-+ (instancetype) elementWithPathElement: (CGPathElement) element;
++ (instancetype)elementWithPathElement:(CGPathElement)element;
 
 // Applying transformations
-- (BezierElement *) elementByApplyingBlock: (PathBlock) block;
+- (BezierElement *)elementByApplyingBlock:(PathBlock)block;
 
 // Adding to path
-- (void) addToPath: (UIBezierPath *) path;
+- (void)addToPath:(UIBezierPath *)path;
 
 // Readable forms
-@property (nonatomic, readonly) NSString *stringValue;
-- (void) showTheCode;
+@property (nonatomic, readonly)NSString *stringValue;
+- (void)showTheCode;
 @end;

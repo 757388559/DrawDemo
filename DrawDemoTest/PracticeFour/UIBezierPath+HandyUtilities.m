@@ -10,30 +10,36 @@
 #import "UIBezierPath+Elements.h"
 
 #pragma mark - Bounding Box
-CGRect PathBoundingBox(UIBezierPath *path) {
+CGRect PathBoundingBox(UIBezierPath *path)
+{
     return CGPathGetBoundingBox(path.CGPath);
 }
 
-CGRect PathBoundingBoxIgnorContolPoints(UIBezierPath *path) {
+CGRect PathBoundingBoxIgnorContolPoints(UIBezierPath *path)
+{
     return CGPathGetPathBoundingBox(path.CGPath);
 }
 
-CGRect PathBoundingBoxWithLineWidth(UIBezierPath *path) {
+CGRect PathBoundingBoxWithLineWidth(UIBezierPath *path)
+{
     CGRect bounding = PathBoundingBox(path);
     return CGRectInset(bounding, -path.lineWidth /2.0f, -path.lineWidth/2.0f);
 }
 
-CGPoint PathBoundingCenter(UIBezierPath *path) {
+CGPoint PathBoundingCenter(UIBezierPath *path)
+{
     CGRect bounding = PathBoundingBox(path);
     return RectGetCenter(bounding);
 }
 
-CGPoint PathCenter(UIBezierPath *path) {
+CGPoint PathCenter(UIBezierPath *path)
+{
     return RectGetCenter(path.bounds);
 }
 
 // Transformations
-void ApplyCenteredPathTransform(UIBezierPath *path, CGAffineTransform transform) {
+void ApplyCenteredPathTransform(UIBezierPath *path, CGAffineTransform transform)
+{
     
     CGPoint center = PathBoundingCenter(path);
     CGAffineTransform t = CGAffineTransformIdentity;
@@ -43,7 +49,8 @@ void ApplyCenteredPathTransform(UIBezierPath *path, CGAffineTransform transform)
     [path applyTransform:t];
 }
 
-UIBezierPath *PathByApplyingTransform(UIBezierPath *path, CGAffineTransform transform) {
+UIBezierPath *PathByApplyingTransform(UIBezierPath *path, CGAffineTransform transform)
+{
     
     UIBezierPath *pathCopy = [path copy];
     ApplyCenteredPathTransform(pathCopy, transform);
@@ -51,26 +58,30 @@ UIBezierPath *PathByApplyingTransform(UIBezierPath *path, CGAffineTransform tran
 }
 
 // Utility
-void RotatePath(UIBezierPath *path, CGFloat theta) {
+void RotatePath(UIBezierPath *path, CGFloat theta)
+{
     
     CGAffineTransform rotateTransform = CGAffineTransformMakeRotation(theta);
     ApplyCenteredPathTransform(path, rotateTransform);
 }
 
-void ScalePath(UIBezierPath *path, CGFloat sx, CGFloat sy) {
+void ScalePath(UIBezierPath *path, CGFloat sx, CGFloat sy)
+{
     
     CGAffineTransform scaleTransform = CGAffineTransformMakeScale(sx, sy);
     ApplyCenteredPathTransform(path, scaleTransform);
     
 }
 
-void OffsetPath(UIBezierPath *path, CGSize offset){
+void OffsetPath(UIBezierPath *path, CGSize offset)
+{
     
     CGAffineTransform translatin = CGAffineTransformMakeTranslation(offset.width, offset.height);
     ApplyCenteredPathTransform(path, translatin);
 }
 
-void MovePathToPoint(UIBezierPath *path, CGPoint point) {
+void MovePathToPoint(UIBezierPath *path, CGPoint point)
+{
     
     CGRect bounds = PathBoundingBox(path);
     CGPoint p1 = bounds.origin;
@@ -79,7 +90,8 @@ void MovePathToPoint(UIBezierPath *path, CGPoint point) {
     OffsetPath(path, vector);
 }
 
-void MovePathCenterToPoint(UIBezierPath *path, CGPoint point) {
+void MovePathCenterToPoint(UIBezierPath *path, CGPoint point)
+{
     
     CGRect bounds = PathBoundingBox(path);
     CGPoint p1 = bounds.origin;
@@ -90,19 +102,22 @@ void MovePathCenterToPoint(UIBezierPath *path, CGPoint point) {
     OffsetPath(path, vector);
 }
 
-void MirrorPathHorizontally(UIBezierPath *path) {
+void MirrorPathHorizontally(UIBezierPath *path)
+{
     
     CGAffineTransform t = CGAffineTransformMakeScale(-1, 1);
     ApplyCenteredPathTransform(path, t);
 }
-void MirrorPathVertically(UIBezierPath *path){
+void MirrorPathVertically(UIBezierPath *path)
+{
     
     CGAffineTransform t = CGAffineTransformMakeScale(1, -1);
     ApplyCenteredPathTransform(path, t);
 }
 
 // Fitting
-void FitPathToRect(UIBezierPath *path, CGRect destRect) {
+void FitPathToRect(UIBezierPath *path, CGRect destRect)
+{
     
     CGRect bounds = PathBoundingBox(path);
     CGRect fitRect = RectByFittingInRect(bounds, destRect);
@@ -113,7 +128,8 @@ void FitPathToRect(UIBezierPath *path, CGRect destRect) {
     ScalePath(path, scale, scale);
     
 }
-void AdjustPathToRect(UIBezierPath *path, CGRect destRect) {
+void AdjustPathToRect(UIBezierPath *path, CGRect destRect)
+{
     
     CGRect bounds = PathBoundingBox(path);
     CGFloat scaleX = destRect.size.width / bounds.size.width;
@@ -125,7 +141,8 @@ void AdjustPathToRect(UIBezierPath *path, CGRect destRect) {
 }
 
 // Path Attributes
-void CopyBezierState(UIBezierPath *source, UIBezierPath *destination) {
+void CopyBezierState(UIBezierPath *source, UIBezierPath *destination)
+{
     
     destination.lineWidth = source.lineWidth;
     destination.lineCapStyle = source.lineCapStyle;
@@ -137,7 +154,8 @@ void CopyBezierState(UIBezierPath *source, UIBezierPath *destination) {
     
 }
 
-void CopyBezierDashes(UIBezierPath *source, UIBezierPath *destination) {
+void CopyBezierDashes(UIBezierPath *source, UIBezierPath *destination)
+{
     
     NSInteger count;
     [source getLineDash:NULL count:&count phase:NULL];
@@ -149,14 +167,16 @@ void CopyBezierDashes(UIBezierPath *source, UIBezierPath *destination) {
     free(pattern);
 }
 
-void AddDashesToPath(UIBezierPath *path) {
+void AddDashesToPath(UIBezierPath *path)
+{
     
     CGFloat dash[] = {6 , 2};
     [path setLineDash:dash count:2 phase:0];
 }
 
 // String to Path
-UIBezierPath *BezierPathFromString(NSString *string, UIFont *font) {
+UIBezierPath *BezierPathFromString(NSString *string, UIFont *font)
+{
     
     // Initialize path
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -204,7 +224,8 @@ UIBezierPath *BezierPathFromString(NSString *string, UIFont *font) {
 
 }
 
-UIBezierPath *BezierPathFromStringWithFontFace(NSString *string, NSString *fontFace) {
+UIBezierPath *BezierPathFromStringWithFontFace(NSString *string, NSString *fontFace)
+{
     
     UIFont *font = [UIFont fontWithName:fontFace size:16];
     if (!font)
@@ -221,29 +242,29 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
 @implementation UIBezierPath (HandyUtilities)
 
 #pragma mark - Bounds
-- (CGPoint) center
+- (CGPoint)center
 {
     return PathBoundingCenter(self);
 }
 
-- (CGRect) computedBounds
+- (CGRect)computedBounds
 {
     return PathBoundingBox(self);
 }
 
-- (CGRect) computedBoundsWithLineWidth
+- (CGRect)computedBoundsWithLineWidth
 {
     return PathBoundingBoxWithLineWidth(self);
 }
 
 #pragma mark - Stroking and Filling
 
-- (void) addDashes
+- (void)addDashes
 {
     AddDashesToPath(self);
 }
 
-- (void) addDashes: (NSArray *) pattern
+- (void)addDashes:(NSArray *)pattern
 {
     if (!pattern.count) return;
     CGFloat *dashes = malloc(pattern.count * sizeof(CGFloat));
@@ -254,7 +275,7 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
     free(dashes);
 }
 
-- (void) applyPathPropertiesToContext
+- (void)applyPathPropertiesToContext
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (context == NULL) NSLog(@"No context to draw into");
@@ -275,7 +296,7 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
     free(pattern);
 }
 
-- (void)stroke: (CGFloat) width color: (UIColor *) color
+- (void)stroke:(CGFloat)width color:(UIColor *)color
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (context == NULL) NSLog(@"No context to draw into");
@@ -290,12 +311,12 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
     });
 }
 
-- (void) stroke: (CGFloat) width
+- (void)stroke:(CGFloat)width
 {
     [self stroke:width color:nil];
 }
 
-- (void)strokeInside: (CGFloat) width color: (UIColor *) color
+- (void)strokeInside:(CGFloat)width color:(UIColor *)color
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (context == NULL) NSLog(@"No context to draw into");
@@ -306,12 +327,12 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
     });
 }
 
-- (void)strokeInside: (CGFloat) width
+- (void)strokeInside:(CGFloat)width
 {
     [self strokeInside:width color:nil];
 }
 
-- (void)fill:(UIColor *) fillColor
+- (void)fill:(UIColor *)fillColor
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (context == NULL) NSLog(@"No context to draw into");
@@ -323,7 +344,8 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
     });
 }
 
-- (void) drawOuterGlow: (UIColor *) fillColor withRadius: (CGFloat) radius {
+- (void)drawOuterGlow:(UIColor *)fillColor withRadius:(CGFloat)radius
+{
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (context == NULL)
@@ -339,7 +361,8 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
     CGContextRestoreGState(context);
 }
 
-- (void) drawInnerGlow: (UIColor *) fillColor withRadius: (CGFloat) radius {
+- (void)drawInnerGlow:(UIColor *)fillColor withRadius:(CGFloat)radius
+{
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     if (context == NULL)
@@ -356,12 +379,14 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
 }
 
 #pragma mark - Clippage
-- (void) clipToPath {
+- (void)clipToPath
+{
     
     [self addClip];
 }
 
-- (void) clipToStroke:(NSUInteger)width {
+- (void)clipToStroke:(NSUInteger)width
+{
     
     CGPathRef pathRef = CGPathCreateCopyByStrokingPath(self.CGPath, NULL, width, kCGLineCapButt, kCGLineJoinMiter, 4);
     UIBezierPath *clipPath = [UIBezierPath bezierPathWithCGPath:pathRef];
@@ -371,7 +396,7 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
 
 #pragma mark - Misc
 
-- (UIBezierPath *) safeCopy {
+- (UIBezierPath *)safeCopy {
     
     UIBezierPath *p = [UIBezierPath bezierPath];
     [p appendPath:self];

@@ -33,7 +33,3 @@ CGPoint InterpolateLineSegment(CGPoint p1, CGPoint p2, CGFloat percent, CGPoint 
 // Interpolate along element
 CGPoint InterpolatePointFromElement(BezierElement *element, CGPoint point, CGPoint startPoint, CGFloat percent, CGPoint *slope);
 
-// Ease
-CGFloat EaseIn(CGFloat currentTime, int factor);
-CGFloat EaseOut(CGFloat currentTime, int factor);
-CGFloat EaseInOut(CGFloat currentTime, int factor);

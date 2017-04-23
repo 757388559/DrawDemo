@@ -20,5 +20,7 @@
 #import "UIBezierPath+Elements.h"
 #import "BezierElement.h"
 #import "UIBezierPath+HandyUtilities.h"
+#import "BezierFunctions.h"
+
 
 #endif /* PrefixHeader_pch */

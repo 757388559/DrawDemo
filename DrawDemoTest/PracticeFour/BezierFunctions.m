@@ -184,23 +184,3 @@ CGPoint InterpolatePointFromElement(BezierElement *element, CGPoint point, CGPoi
     return NULLPOINT;
 }
 
-CGFloat EaseIn(CGFloat currentTime, int factor)
-{
-    return powf(currentTime, factor);
-}
-
-CGFloat EaseOut(CGFloat currentTime, int factor)
-{
-    return 1 - powf((1 - currentTime), factor);
-}
-
-CGFloat EaseInOut(CGFloat currentTime, int factor)
-{
-    currentTime = currentTime * 2.0;
-    if (currentTime < 1)
-        return (0.5 * pow(currentTime, factor));
-    currentTime -= 2.0;
-    if (factor % 2)
-        return 0.5 * (pow(currentTime, factor) + 2.0);
-    return 0.5 * (2.0 - pow(currentTime, factor));
-}
