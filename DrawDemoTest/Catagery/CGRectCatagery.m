@@ -8,6 +8,41 @@
 
 #include "CGRectCatagery.h"
 
+#pragma mark - Conversion
+// Degrees from radians
+CGFloat DegreesFromRadians(CGFloat radians)
+{
+    return radians * 180.0f / M_PI;
+}
+
+// Radians from degrees
+CGFloat RadiansFromDegrees(CGFloat degrees)
+{
+    return degrees * M_PI / 180.0f;
+}
+
+#pragma mark - General Geometry
+
+CGFloat PointDistanceFromPoint(CGPoint p1, CGPoint p2)
+{
+    CGFloat dx = p2.x - p1.x;
+    CGFloat dy = p2.y - p1.y;
+    
+    return sqrt(dx*dx + dy*dy);
+}
+
+CGPoint PointAddPoint(CGPoint p1, CGPoint p2)
+{
+    return CGPointMake(p1.x + p2.x, p1.y + p2.y);
+}
+
+CGPoint PointSubtractPoint(CGPoint p1, CGPoint p2)
+{
+    return CGPointMake(p1.x - p2.x, p1.y - p2.y);
+}
+
+
+
 CGRect RectMakeWithOrigin(CGPoint origin ,CGSize size) {
     return CGRectMake(origin.x, origin.y, size.width, size.height);
 }

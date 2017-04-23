@@ -13,6 +13,27 @@
 #import <UIKit/UIGeometry.h>
 #include <stdio.h>
 
+// Undefined point
+#define NULLPOINT CGRectNull.origin
+#define POINT_IS_NULL(_POINT_) CGPointEqualToPoint(_POINT_, NULLPOINT)
+
+// General
+#define RECTSTRING(_aRect_)        NSStringFromCGRect(_aRect_)
+#define POINTSTRING(_aPoint_)    NSStringFromCGPoint(_aPoint_)
+#define SIZESTRING(_aSize_)        NSStringFromCGSize(_aSize_)
+
+#define RECT_WITH_SIZE(_SIZE_) (CGRect){.size = _SIZE_}
+#define RECT_WITH_POINT(_POINT_) (CGRect){.origin = _POINT_}
+
+// Conversion
+CGFloat DegreesFromRadians(CGFloat radians);
+CGFloat RadiansFromDegrees(CGFloat degrees);
+
+// General Geometry
+CGFloat PointDistanceFromPoint(CGPoint p1, CGPoint p2);
+CGPoint PointAddPoint(CGPoint p1, CGPoint p2);
+CGPoint PointSubtractPoint(CGPoint p1, CGPoint p2);
+
 /**
  通过原点的大小生成CGRect
  

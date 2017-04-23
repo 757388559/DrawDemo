@@ -7,6 +7,8 @@
 //
 
 #import "BezierPathPratice.h"
+#import "UIBezierPath+HandyUtilities.h"
+
 
 @implementation BezierPathPratice
 
@@ -16,27 +18,14 @@
     
     // 笑脸
 //    [self createALaughFace:CGRectMake(20, rect.origin.x+rect.size.height/4, 300, 300)];
-    
-//    [self aaaa];
+
     
 }
 
-- (void)showPathProgression:(UIBezierPath *)path maxPercent:(CGFloat)maxPercent {
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    if (context == NULL) {
-        NSLog(@"Error:No context to draw to");
-        return;
-    }
-    
-    // Bound the percent value
-    CGFloat maximunPercent = fmaxf(fminf(maxPercent, 1.0f), 0.0f);
-    CGContextSaveGState(context);
-    
-    // One sample every six points
-    
+    [self setNeedsDisplay];
 }
-
 
 
 // Laugh Face

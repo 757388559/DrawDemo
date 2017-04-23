@@ -14,8 +14,12 @@
 		0A85D0341E5C818300416AC8 /* bunnyLeft.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0A85D0301E5C818300416AC8 /* bunnyLeft.jpeg */; };
 		0A85D0351E5C818300416AC8 /* bg20161219.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A85D0311E5C818300416AC8 /* bg20161219.jpg */; };
 		0A85D0361E5C818300416AC8 /* juhua.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A85D0321E5C818300416AC8 /* juhua.png */; };
+		0A8EF8521EACCCE700B56D02 /* Draw-Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EF8511EACCCE700B56D02 /* Draw-Block.m */; };
+		0A8EF8621EACD24000B56D02 /* BezierElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EF85D1EACD24000B56D02 /* BezierElement.m */; };
+		0A8EF8631EACD24000B56D02 /* BezierFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EF85F1EACD24000B56D02 /* BezierFunctions.m */; };
+		0A8EF8641EACD24000B56D02 /* UIBezierPath+Elements.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EF8611EACD24000B56D02 /* UIBezierPath+Elements.m */; };
 		0AAB88A01EA65976000D522D /* BezierPathPratice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB88981EA65976000D522D /* BezierPathPratice.m */; };
-		0AAB88A11EA65976000D522D /* BezierUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB889A1EA65976000D522D /* BezierUtility.m */; };
+		0AAB88A11EA65976000D522D /* UIBezierPath+HandyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB889A1EA65976000D522D /* UIBezierPath+HandyUtilities.m */; };
 		0AAB88A21EA65976000D522D /* DrawAlignmentInMind.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB889D1EA65976000D522D /* DrawAlignmentInMind.m */; };
 		0AAB88A31EA65976000D522D /* DrawPDFPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB889F1EA65976000D522D /* DrawPDFPageView.m */; };
 		0AE6A1591E03E67F00C67817 /* PlayCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6A1581E03E67F00C67817 /* PlayCardView.m */; };
@@ -38,11 +42,18 @@
 		0A85D0301E5C818300416AC8 /* bunnyLeft.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bunnyLeft.jpeg; sourceTree = "<group>"; };
 		0A85D0311E5C818300416AC8 /* bg20161219.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg20161219.jpg; sourceTree = "<group>"; };
 		0A85D0321E5C818300416AC8 /* juhua.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = juhua.png; sourceTree = "<group>"; };
-		0A8EF84F1EACA83D00B56D02 /* Bezier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bezier.h; sourceTree = "<group>"; };
+		0A8EF8501EACCCE700B56D02 /* Draw-Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Draw-Block.h"; sourceTree = "<group>"; };
+		0A8EF8511EACCCE700B56D02 /* Draw-Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Draw-Block.m"; sourceTree = "<group>"; };
+		0A8EF85C1EACD24000B56D02 /* BezierElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierElement.h; sourceTree = "<group>"; };
+		0A8EF85D1EACD24000B56D02 /* BezierElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BezierElement.m; sourceTree = "<group>"; };
+		0A8EF85E1EACD24000B56D02 /* BezierFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierFunctions.h; sourceTree = "<group>"; };
+		0A8EF85F1EACD24000B56D02 /* BezierFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BezierFunctions.m; sourceTree = "<group>"; };
+		0A8EF8601EACD24000B56D02 /* UIBezierPath+Elements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Elements.h"; sourceTree = "<group>"; };
+		0A8EF8611EACD24000B56D02 /* UIBezierPath+Elements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Elements.m"; sourceTree = "<group>"; };
 		0AAB88971EA65976000D522D /* BezierPathPratice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierPathPratice.h; sourceTree = "<group>"; };
 		0AAB88981EA65976000D522D /* BezierPathPratice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BezierPathPratice.m; sourceTree = "<group>"; };
-		0AAB88991EA65976000D522D /* BezierUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierUtility.h; sourceTree = "<group>"; };
-		0AAB889A1EA65976000D522D /* BezierUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BezierUtility.m; sourceTree = "<group>"; };
+		0AAB88991EA65976000D522D /* UIBezierPath+HandyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+HandyUtilities.h"; sourceTree = "<group>"; };
+		0AAB889A1EA65976000D522D /* UIBezierPath+HandyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+HandyUtilities.m"; sourceTree = "<group>"; };
 		0AAB889C1EA65976000D522D /* DrawAlignmentInMind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawAlignmentInMind.h; sourceTree = "<group>"; };
 		0AAB889D1EA65976000D522D /* DrawAlignmentInMind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawAlignmentInMind.m; sourceTree = "<group>"; };
 		0AAB889E1EA65976000D522D /* DrawPDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawPDFPageView.h; sourceTree = "<group>"; };
@@ -75,9 +86,11 @@
 		0A4875371E4E0E2000C7A333 /* Catagery */ = {
 			isa = PBXGroup;
 			children = (
+				0A42F7D61E76D8F500466818 /* Header.pch */,
+				0A8EF8501EACCCE700B56D02 /* Draw-Block.h */,
+				0A8EF8511EACCCE700B56D02 /* Draw-Block.m */,
 				0A42F7DE1E76E9D000466818 /* CGRectCatagery.h */,
 				0A42F7DD1E76E9D000466818 /* CGRectCatagery.m */,
-				0A42F7D61E76D8F500466818 /* Header.pch */,
 				0A85D0281E5B344100416AC8 /* UIImage+Customer.h */,
 				0A85D0291E5B344100416AC8 /* UIImage+Customer.m */,
 			);
@@ -101,9 +114,14 @@
 			children = (
 				0AAB88971EA65976000D522D /* BezierPathPratice.h */,
 				0AAB88981EA65976000D522D /* BezierPathPratice.m */,
-				0AAB88991EA65976000D522D /* BezierUtility.h */,
-				0AAB889A1EA65976000D522D /* BezierUtility.m */,
-				0A8EF84F1EACA83D00B56D02 /* Bezier.h */,
+				0AAB88991EA65976000D522D /* UIBezierPath+HandyUtilities.h */,
+				0AAB889A1EA65976000D522D /* UIBezierPath+HandyUtilities.m */,
+				0A8EF85C1EACD24000B56D02 /* BezierElement.h */,
+				0A8EF85D1EACD24000B56D02 /* BezierElement.m */,
+				0A8EF85E1EACD24000B56D02 /* BezierFunctions.h */,
+				0A8EF85F1EACD24000B56D02 /* BezierFunctions.m */,
+				0A8EF8601EACD24000B56D02 /* UIBezierPath+Elements.h */,
+				0A8EF8611EACD24000B56D02 /* UIBezierPath+Elements.m */,
 			);
 			path = PracticeFour;
 			sourceTree = "<group>";
@@ -242,15 +260,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AE6A1591E03E67F00C67817 /* PlayCardView.m in Sources */,
+				0A8EF8631EACD24000B56D02 /* BezierFunctions.m in Sources */,
 				0AAB88A21EA65976000D522D /* DrawAlignmentInMind.m in Sources */,
 				0A85D02A1E5B344100416AC8 /* UIImage+Customer.m in Sources */,
 				0AF6AF6C1DDA118E003F3A6D /* ViewController.m in Sources */,
 				0AAB88A01EA65976000D522D /* BezierPathPratice.m in Sources */,
+				0A8EF8621EACD24000B56D02 /* BezierElement.m in Sources */,
 				0A42F7DF1E76E9D000466818 /* CGRectCatagery.m in Sources */,
+				0A8EF8641EACD24000B56D02 /* UIBezierPath+Elements.m in Sources */,
 				0AF6AF691DDA118E003F3A6D /* AppDelegate.m in Sources */,
 				0AF6AF661DDA118E003F3A6D /* main.m in Sources */,
+				0A8EF8521EACCCE700B56D02 /* Draw-Block.m in Sources */,
 				0AAB88A31EA65976000D522D /* DrawPDFPageView.m in Sources */,
-				0AAB88A11EA65976000D522D /* BezierUtility.m in Sources */,
+				0AAB88A11EA65976000D522D /* UIBezierPath+HandyUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
