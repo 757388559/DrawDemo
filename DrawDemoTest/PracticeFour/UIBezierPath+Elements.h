@@ -39,16 +39,16 @@ UIBezierPath *PathFromPercentToPercent(UIBezierPath *path, CGFloat startPercent,
 @property (nonatomic, readonly) UIBezierPath *boundedInverse;
 
 @property (nonatomic, readonly) BOOL subpathIsClosed;
-- (BOOL) closeSafely;
+- (BOOL)closeSafely;
 
 // Measure length
 @property (nonatomic, readonly) CGFloat pathLength;
-- (CGPoint) pointAtPercent: (CGFloat) percent withSlope: (CGPoint *) slope;
+- (CGPoint)pointAtPercent:(CGFloat)percent withSlope:(CGPoint *)slope;
 
 // String Representations
-- (void) showTheCode;
-- (NSString *) stringValue;
+- (void)showTheCode;
+- (NSString *)stringValue;
 
 // -- Invert path to arbitrary rectangle
-- (UIBezierPath *) inverseInRect: (CGRect) rect;
+- (UIBezierPath *)inverseInRect:(CGRect)rect;
 @end

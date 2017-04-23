@@ -77,7 +77,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
 }
 
 // Retrieve array of component elements
-- (NSArray *) elements
+- (NSArray *)elements
 {
     NSMutableArray *elements = [NSMutableArray array];
     CGPathApply(self.CGPath, (__bridge void *)elements, GetBezierElements);
@@ -86,7 +86,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
 
 #pragma mark - Subpaths
 // Subpaths must be well defined
-- (NSMutableArray *) subpaths
+- (NSMutableArray *)subpaths
 {
     NSMutableArray *results = [NSMutableArray array];
     UIBezierPath *current = nil;
@@ -130,7 +130,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
 
 
 // Only collect those points that have destinations
-- (NSArray *) destinationPoints
+- (NSArray *)destinationPoints
 {
     NSMutableArray *array = [NSMutableArray array];
     NSArray *elements = self.elements;
@@ -143,7 +143,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
 }
 
 // Points and interpolated points
-- (NSArray *) interpolatedPathPoints
+- (NSArray *)interpolatedPathPoints
 {
     NSMutableArray *points = [NSMutableArray array];
     BezierElement *current = nil;
@@ -191,7 +191,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
 
 #pragma mark - Array Access
 
-- (NSUInteger) count
+- (NSUInteger)count
 {
     return self.elements.count;
 }
@@ -205,20 +205,20 @@ void GetBezierElements(void *info, const CGPathElement *element)
 }
 
 #pragma mark - Geometry Workaround
-- (CGRect) calculatedBounds
+- (CGRect)calculatedBounds
 {
     // Thank you Ryan Petrich
     return CGPathGetPathBoundingBox(self.CGPath);
 }
 
 // Return center of bounds
-- (CGPoint) center
+- (CGPoint)center
 {
     return RectGetCenter(self.calculatedBounds);
 }
 
 #pragma mark - Reversal Workaround
-- (UIBezierPath *) reverseSubpath: (UIBezierPath *) subpath
+- (UIBezierPath *)reverseSubpath:(UIBezierPath *)subpath
 {
     NSArray *elements = subpath.elements;
     NSArray *reversedElements = [[elements reverseObjectEnumerator] allObjects];
@@ -301,7 +301,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
 
 }
 
-- (UIBezierPath *) reversed
+- (UIBezierPath *)reversed
 {
     // [self bezierPathByReversingPath] seriously does not work the
     // way you expect. Radars are filed.
@@ -319,7 +319,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
 }
 
 #pragma mark - Closing
-- (BOOL) subpathIsClosed
+- (BOOL)subpathIsClosed
 {
     NSArray *elements = self.elements;
     
@@ -332,7 +332,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
     return element.elementType == kCGPathElementCloseSubpath;
 }
 
-- (BOOL) closeSafely
+- (BOOL)closeSafely
 {
     NSArray *elements = self.elements;
     if (elements.count < 2)
@@ -350,7 +350,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
 
 
 #pragma mark - Show the Code
-- (void) showTheCode
+- (void)showTheCode
 {
     
     printf("\n- (UIBezierPath *) buildBezierPath\n");
@@ -365,7 +365,7 @@ void GetBezierElements(void *info, const CGPathElement *element)
     printf("}\n\n");
 }
 
-- (NSString *) stringValue
+- (NSString *)stringValue
 {
     NSMutableString *string = [NSMutableString stringWithString:@"\n"];
     NSArray *elements = self.elements;
@@ -391,7 +391,7 @@ CGPoint adjustPoint(CGPoint p, CGRect native, CGRect dest)
 }
 
 // Adjust points by applying block to each element
-- (UIBezierPath *) adjustPathElementsWithBlock: (PathBlock) block
+- (UIBezierPath *)adjustPathElementsWithBlock:(PathBlock)block
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     if (!block)
@@ -407,7 +407,7 @@ CGPoint adjustPoint(CGPoint p, CGRect native, CGRect dest)
 }
 
 // Apply transform
-- (UIBezierPath *) pathApplyTransform: (CGAffineTransform) transform
+- (UIBezierPath *)pathApplyTransform:(CGAffineTransform)transform
 {
     UIBezierPath *copy = [UIBezierPath bezierPath];
     [copy appendPath:self];
@@ -423,7 +423,7 @@ CGPoint adjustPoint(CGPoint p, CGRect native, CGRect dest)
     return copy;
 }
 
-- (CGFloat) pathLength
+- (CGFloat)pathLength
 {
     NSArray *elements = self.elements;
     CGPoint current = NULLPOINT;
@@ -448,7 +448,7 @@ CGPoint adjustPoint(CGPoint p, CGRect native, CGRect dest)
 
 
 // Retrieve the point and slope at a given percent offset -- This is expensive
-- (CGPoint) pointAtPercent: (CGFloat) percent withSlope: (CGPoint *) slope
+- (CGPoint)pointAtPercent:(CGFloat)percent withSlope:(CGPoint *)slope
 {
     NSArray *elements = self.elements;
     
@@ -498,7 +498,7 @@ CGPoint adjustPoint(CGPoint p, CGRect native, CGRect dest)
 }
 
 #pragma mark - Inverses
-- (UIBezierPath *) inverseInRect: (CGRect) rect
+- (UIBezierPath *)inverseInRect:(CGRect)rect
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     CopyBezierState(self, path);
@@ -508,11 +508,13 @@ CGPoint adjustPoint(CGPoint p, CGRect native, CGRect dest)
     return path;
 }
 
-- (UIBezierPath *)inverse {
+- (UIBezierPath *)inverse
+{
     return [self inverseInRect:CGRectInfinite];
 }
 
-- (UIBezierPath *)boundedInverse {
+- (UIBezierPath *)boundedInverse
+{
     return [self inverseInRect:self.bounds];
 }
 @end
