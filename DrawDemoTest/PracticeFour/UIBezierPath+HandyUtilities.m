@@ -37,10 +37,46 @@ CGPoint PathCenter(UIBezierPath *path)
     return RectGetCenter(path.bounds);
 }
 
+#pragma mark - Misc
+void ClipToRect(CGRect rect)
+{
+    [[UIBezierPath bezierPathWithRect:rect] addClip];
+}
+
+void FillRect(CGRect rect, UIColor *color)
+{
+    [[UIBezierPath bezierPathWithRect:rect] fill:color];
+}
+
+void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent)
+{
+    if (!path) NSLog(@"Path cannot be nil");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) NSLog(@"No context to draw into");
+    
+    CGFloat maximumPercent = fmax(fmin(maxPercent, 1.0f), 0.0f);
+    PushDraw(^{
+        CGFloat distance = path.pathLength;
+        int samples = distance / 6;
+        float dLevel = 0.75 / (CGFloat) samples;
+        
+        UIBezierPath *marker;
+        for (int i = 0; i <= samples * maximumPercent; i++)
+        {
+            CGFloat percent = (CGFloat) i / (CGFloat) samples;
+            CGPoint point = [path pointAtPercent:percent withSlope:NULL];
+            UIColor *color = [UIColor colorWithWhite:i * dLevel alpha:1];
+            
+            CGRect r = RectAroundCenter(point, CGSizeMake(2, 2));
+            marker = [UIBezierPath bezierPathWithOvalInRect:r];
+            [marker fill:color];
+        }
+    });
+}
+
 // Transformations
 void ApplyCenteredPathTransform(UIBezierPath *path, CGAffineTransform transform)
 {
-    
     CGPoint center = PathBoundingCenter(path);
     CGAffineTransform t = CGAffineTransformIdentity;
     t = CGAffineTransformTranslate(t, center.x, center.y);
@@ -108,6 +144,7 @@ void MirrorPathHorizontally(UIBezierPath *path)
     CGAffineTransform t = CGAffineTransformMakeScale(-1, 1);
     ApplyCenteredPathTransform(path, t);
 }
+
 void MirrorPathVertically(UIBezierPath *path)
 {
     
@@ -128,6 +165,7 @@ void FitPathToRect(UIBezierPath *path, CGRect destRect)
     ScalePath(path, scale, scale);
     
 }
+
 void AdjustPathToRect(UIBezierPath *path, CGRect destRect)
 {
     
@@ -233,11 +271,124 @@ UIBezierPath *BezierPathFromStringWithFontFace(NSString *string, NSString *fontF
     return BezierPathFromString(string, font);
 }
 
+#pragma mark - Shadows
 
-// Misc
-void ClipToRect(CGRect rect);
-void FillRect(CGRect rect, UIColor *color);
-void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
+// Establish context shadow state
+void SetShadow(UIColor *color, CGSize size, CGFloat blur)
+{
+    if (!color) NSLog(@"Color cannot be nil");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) NSLog(@"No context to draw into");
+    
+    if (color)
+        CGContextSetShadowWithColor(context, size, blur, color.CGColor);
+    else
+        CGContextSetShadow(context, size, blur);
+}
+
+// Draw *only* the shadow
+void DrawShadow(UIBezierPath *path, UIColor *color, CGSize size, CGFloat blur)
+{
+    if (!path) NSLog(@"Path cannot be nil");
+    if (!color) NSLog(@"Color cannot be nil");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) NSLog(@"No context to draw into");
+    
+    // Build shadow
+    PushDraw(^{
+        SetShadow(color, CGSizeMake(size.width, size.height), blur);
+        [path.inverse addClip];
+        [path fill:color];
+    });
+}
+
+// Draw shadow inside shape
+void DrawInnerShadow(UIBezierPath *path, UIColor *color, CGSize size, CGFloat blur)
+{
+    if (!path) NSLog(@"Path cannot be nil");
+    if (!color) NSLog(@"Color cannot be nil");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) NSLog(@"No context to draw into");
+    
+    // Build shadow
+    PushDraw(^{
+        SetShadow(color, CGSizeMake(size.width, size.height), blur);
+        [path addClip];
+        [path.inverse fill:color];
+    });
+}
+
+#pragma mark - Photoshop Style Effects
+
+UIColor *ContrastColor(UIColor *color)
+{
+    if (CGColorSpaceGetNumberOfComponents(CGColorGetColorSpace(color.CGColor)) == 3)
+    {
+        CGFloat r, g, b, a;
+        [color getRed:&r green:&g blue:&b alpha:&a];
+        CGFloat luminance = r * 0.2126f + g * 0.7152f + b * 0.0722f;
+        return (luminance > 0.5f) ? [UIColor blackColor] : [UIColor whiteColor];
+    }
+    
+    CGFloat w, a;
+    [color getWhite:&w alpha:&a];
+    return (w > 0.5f) ? [UIColor blackColor] : [UIColor whiteColor];
+}
+
+// Create 3d embossed effect
+// Typically call with black color at 0.5
+void EmbossPath(UIBezierPath *path, UIColor *color, CGFloat radius, CGFloat blur)
+{
+    if (!path) NSLog(@"Path cannot be nil");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) NSLog(@"No context to draw into");
+    
+    
+    UIColor *contrast = ContrastColor(color);
+    DrawInnerShadow(path, contrast, CGSizeMake(-radius, radius), blur);
+    DrawInnerShadow(path, color, CGSizeMake(radius, -radius), blur);
+}
+
+// Half an emboss
+void InnerBevel(UIBezierPath *path,  UIColor *color, CGFloat radius, CGFloat theta)
+{
+    if (!path) NSLog(@"Path cannot be nil");
+    if (!color) NSLog(@"Color cannot be nil");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) NSLog(@"No context to draw into");
+    
+    CGFloat x = radius * sin(theta);
+    CGFloat y = radius * cos(theta);
+    
+    UIColor *shadowColor = [color colorWithAlphaComponent:0.5f];
+    DrawInnerShadow(path, shadowColor, CGSizeMake(-x, y), 2);
+}
+
+// I don't love this
+void ExtrudePath(UIBezierPath *path, UIColor *color, CGFloat radius, CGFloat theta)
+{
+    if (!path) NSLog(@"Path cannot be nil");
+    if (!color) NSLog(@"Color cannot be nil");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) NSLog(@"No context to draw into");
+    CGFloat x = radius * sin(theta);
+    CGFloat y = radius * cos(theta);
+    DrawShadow(path, color, CGSizeMake(x, y), 0);
+}
+
+// Typically call with black color at 0.5
+void BevelPath(UIBezierPath *path,  UIColor *color, CGFloat radius, CGFloat theta)
+{
+    if (!path) NSLog(@"Path cannot be nil");
+    if (!color) NSLog(@"Color cannot be nil");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) NSLog(@"No context to draw into");
+    
+    CGFloat x = radius * sin(theta);
+    CGFloat y = radius * cos(theta);
+    DrawInnerShadow(path, color, CGSizeMake(-x, y), 2);
+    DrawShadow(path, color, CGSizeMake(x / 2 , -y / 2), 0);
+}
 
 @implementation UIBezierPath (HandyUtilities)
 
@@ -403,6 +554,7 @@ void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
     CopyBezierState(self, p);
     return p;
 }
+
 
 
 @end

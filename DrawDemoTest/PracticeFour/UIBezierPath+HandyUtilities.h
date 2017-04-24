@@ -44,6 +44,15 @@ void ClipToRect(CGRect rect);
 void FillRect(CGRect rect, UIColor *color);
 void ShowPathProgression(UIBezierPath *path, CGFloat maxPercent);
 
+// Effects
+void SetShadow(UIColor *color, CGSize size, CGFloat blur);
+void DrawShadow(UIBezierPath *path, UIColor *color, CGSize size, CGFloat blur);
+void DrawInnerShadow(UIBezierPath *path, UIColor *color, CGSize size, CGFloat blur);
+void EmbossPath(UIBezierPath *path, UIColor *color, CGFloat radius, CGFloat blur);
+void BevelPath(UIBezierPath *p,  UIColor *color, CGFloat r, CGFloat theta);
+void InnerBevel(UIBezierPath *p,  UIColor *color, CGFloat r, CGFloat theta);
+void ExtrudePath(UIBezierPath *path, UIColor *color, CGFloat radius, CGFloat angle);
+
 
 @interface UIBezierPath (HandyUtilities)
 
