@@ -39,11 +39,32 @@ UIBezierPath *BuildStarPath();
 }
 
 - (void)drawRect:(CGRect)rect {
-    // Drawing code
-   
     // 笑脸
-    [self createALaughFace:CGRectMake(20, rect.origin.x+rect.size.height/4, 300, 300)];
+//    [self createALaughFace:CGRectMake(20, rect.origin.x+rect.size.height/4, 300, 300)];
+    // Drawing code
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 100, 100)];
+    path.lineWidth = 2;
+//    AddDashesToPath(path);
+//    [path stroke];
+//    RotatePath(path, 45/180);
+//    OffsetPath(path, CGSizeMake(100, 0));
+//    ScalePath(path, 2, 2);
+    // Effects
+//    SetShadow([UIColor orangeColor], CGSizeMake(2, 2), .5);
+//    DrawInnerShadow(path, [UIColor purpleColor], CGSizeMake(5, 5), .6);
+//    DrawShadow(path, [UIColor orangeColor], CGSizeMake(2, 2), .5);
+    [path stroke];
+    OffsetPath(path, CGSizeMake(150, 150));
+//    EmbossPath(path, [UIColor orangeColor], 10, .5);
+//    BevelPath(path, [UIColor orangeColor], 10, .5);
+//    InnerBevel(path, [UIColor orangeColor], 10, .5);
+//    ExtrudePath(path, [UIColor orangeColor], 10, .5);
+    [path stroke];
+//    ShowPathProgression(path, .5);
+//    [partPath stroke];
     
+//    InterpolatedPath(<#UIBezierPath *path#>)
+
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

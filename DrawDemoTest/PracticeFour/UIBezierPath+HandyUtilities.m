@@ -96,7 +96,7 @@ UIBezierPath *PathByApplyingTransform(UIBezierPath *path, CGAffineTransform tran
 // Utility
 void RotatePath(UIBezierPath *path, CGFloat theta)
 {
-    
+    // - 顺时针旋转 + 逆时针旋转
     CGAffineTransform rotateTransform = CGAffineTransformMakeRotation(theta);
     ApplyCenteredPathTransform(path, rotateTransform);
 }
