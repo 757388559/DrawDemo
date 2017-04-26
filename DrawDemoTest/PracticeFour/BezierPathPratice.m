@@ -18,6 +18,7 @@ UIBezierPath *BuildStarPath();
     NSInteger shadow;
     NSInteger reverse;
     UIImageView *imageView;
+    CAShapeLayer *shapeLayer;
 }
 
 @end
@@ -39,6 +40,10 @@ UIBezierPath *BuildStarPath();
 }
 
 - (void)drawRect:(CGRect)rect {
+    
+    if (shapeLayer) {
+        [shapeLayer removeFromSuperlayer];
+    }
     // 笑脸
 //    [self createALaughFace:CGRectMake(20, rect.origin.x+rect.size.height/4, 300, 300)];
     // Drawing code
@@ -53,17 +58,25 @@ UIBezierPath *BuildStarPath();
 //    SetShadow([UIColor orangeColor], CGSizeMake(2, 2), .5);
 //    DrawInnerShadow(path, [UIColor purpleColor], CGSizeMake(5, 5), .6);
 //    DrawShadow(path, [UIColor orangeColor], CGSizeMake(2, 2), .5);
-    [path stroke];
-    OffsetPath(path, CGSizeMake(150, 150));
-//    EmbossPath(path, [UIColor orangeColor], 10, .5);
-//    BevelPath(path, [UIColor orangeColor], 10, .5);
-//    InnerBevel(path, [UIColor orangeColor], 10, .5);
-//    ExtrudePath(path, [UIColor orangeColor], 10, .5);
-    [path stroke];
+//    [path stroke];
 //    ShowPathProgression(path, .5);
-//    [partPath stroke];
+    [path stroke];
+    CGPoint center = RectGetCenter(path.bounds);
+    CGAffineTransform t = CGAffineTransformIdentity;
+    t = CGAffineTransformTranslate(t, center.x, center.y);
+    t = CGAffineTransformConcat(CGAffineTransformMakeScale(.5, .5), t);
+//    t = CGAffineTransformConcat(t, CGAffineTransformMakeScale(.5, .5));
+    t = CGAffineTransformTranslate(t, -center.x, -center.y);
+    [path applyTransform:t];
+    [[UIColor orangeColor] setStroke];
+    [path stroke];
     
-//    InterpolatedPath(<#UIBezierPath *path#>)
+//    ScalePath(path, .5, .5);
+//    UIBezierPath *be = BezierStarShape(5, 0.75);
+//    be = BezierPolygon(4);
+//    be = BezierInflectedShape(5, 0.8);
+//    [be stroke];
+    
 
 }
 
@@ -483,7 +496,143 @@ UIBezierPath *BuildStarPath()
     
 }
 
+/**
+ 星星
 
+ @param numberOfInflections 边数
+ @param percentInflection 半
+ @return <#return value description#>
+ */
+UIBezierPath *BezierStarShape(NSUInteger numberOfInflections, CGFloat percentInflection)
+{
+    if (numberOfInflections < 3)
+    {
+        NSLog(@"Error: Please supply at least 3 inflections");
+        return nil;
+    }
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    CGRect destinationRect = CGRectMake(0, 0, 100, 100);
+    
+    CGPoint center = RectGetCenter(destinationRect);
+    CGFloat r = 10;
+    CGFloat rr = r * (1.0 + percentInflection);
+    BOOL firstPoint = YES;
+    for (int i = 0; i < numberOfInflections; i++)
+    {
+        CGFloat dTheta = (M_PI * 2) / numberOfInflections;
+        CGFloat theta = i * dTheta;
+        if (firstPoint)
+        {
+            CGFloat xa = center.x + r * sin(theta);
+            CGFloat ya = center.y + r * cos(theta);
+            CGPoint pa = CGPointMake(xa, ya);
+            [path moveToPoint:pa];
+            firstPoint = NO;
+        }
+        CGFloat cp1x = center.x + rr * sin(theta + dTheta / 2);
+        CGFloat cp1y = center.y + rr * cos(theta + dTheta / 2);
+        CGPoint cp1 = CGPointMake(cp1x, cp1y);
+        
+        CGFloat xb = center.x + r * sin(theta + dTheta);
+        CGFloat yb = center.y + r * cos(theta + dTheta);
+        CGPoint pb = CGPointMake(xb, yb);
+        
+        [path addLineToPoint:cp1];
+        [path addLineToPoint:pb];
+    }
+    [path closePath];
+    return path;
+}
+
+
+/**
+ 三次曲线多边形
+
+ @param numberOfInflections 分割数
+ @param percentInflection 半径
+ @return 形状
+ */
+UIBezierPath *BezierInflectedShape( NSUInteger numberOfInflections, CGFloat percentInflection)
+{
+    if (numberOfInflections < 3)
+    {
+        NSLog(@"Error: Please supply at least 3 inflections");
+        return nil;
+    }
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    CGRect destinationRect = CGRectMake(0, 0, 100, 100);
+    
+    CGPoint center = RectGetCenter(destinationRect);
+    CGFloat r = 10;
+    CGFloat rr = r * (1.0 + percentInflection);
+    BOOL firstPoint = YES;
+    for (int i = 0; i < numberOfInflections; i++)
+    {
+        CGFloat dTheta = (2*M_PI) / numberOfInflections;
+        CGFloat theta = i * dTheta;
+        if (firstPoint)
+        {
+            CGFloat xa = center.x + r * sin(theta);
+            CGFloat ya = center.y + r * cos(theta);
+            CGPoint pa = CGPointMake(xa, ya);
+            [path moveToPoint:pa];
+            firstPoint = NO;
+        }
+        CGFloat cp1x = center.x + rr * sin(theta + dTheta / 3);
+        CGFloat cp1y = center.y + rr * cos(theta + dTheta / 3);
+        CGPoint cp1 = CGPointMake(cp1x, cp1y);
+        
+        CGFloat cp2x = center.x + rr * sin(theta + 2 * dTheta / 3);
+        CGFloat cp2y = center.y + rr * cos(theta + 2 * dTheta / 3);
+        CGPoint cp2 = CGPointMake(cp2x, cp2y);
+        
+        CGFloat xb = center.x + r * sin(theta + dTheta);
+        CGFloat yb = center.y + r * cos(theta + dTheta);
+        CGPoint pb = CGPointMake(xb, yb);
+        
+        [path addCurveToPoint:pb controlPoint1:cp1 controlPoint2:cp2];
+    }
+    [path closePath];
+    return path;
+}
+
+
+/**
+ 多边形
+
+ @param numberOfSides 边数
+ @return 形状
+ */
+UIBezierPath *BezierPolygon(NSUInteger numberOfSides) {
+    
+    if (numberOfSides < 3) {
+        NSLog(@"Error: Please supply at least 3 sides");
+        return nil;
+    }
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    // Use a unit rectangle as the destination
+    CGRect destinationRect = CGRectMake(0, 0, 100, 100);
+    CGPoint center = RectGetCenter(destinationRect);
+    CGFloat r = 10.0f; // radius
+    BOOL firstPoint = YES;
+    for (int i = 0; i < (numberOfSides - 1); i++)
+    {
+        CGFloat dTheta = (M_PI * 2) / numberOfSides;
+        CGFloat theta = M_PI + i * dTheta;
+        CGPoint p;
+        if (firstPoint) {
+            p.x = center.x + r * sin(theta);
+            p.y = center.y + r * cos(theta);
+            [path moveToPoint:p];
+            firstPoint = NO;
+        }
+        p.x = center.x + r * sin(theta + dTheta);
+        p.y = center.y + r * cos(theta + dTheta);
+        [path addLineToPoint:p];
+    }
+    [path closePath];
+    return path;
+}
 
 
 

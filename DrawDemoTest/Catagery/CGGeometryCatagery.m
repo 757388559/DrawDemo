@@ -1,12 +1,12 @@
 //
-//  CGRectCatagery.c
+//  CGGeometryCatagery.c
 //  DrawDemoTest
 //
 //  Created by liugangyi on 2017/3/13.
 //  Copyright © 2017年 com.allinmd.cn. All rights reserved.
 //
 
-#include "CGRectCatagery.h"
+#include "CGGeometryCatagery.h"
 
 #pragma mark - Conversion
 // Degrees from radians
@@ -40,7 +40,6 @@ CGPoint PointSubtractPoint(CGPoint p1, CGPoint p2)
 {
     return CGPointMake(p1.x - p2.x, p1.y - p2.y);
 }
-
 
 
 CGRect RectMakeWithOrigin(CGPoint origin ,CGSize size) {

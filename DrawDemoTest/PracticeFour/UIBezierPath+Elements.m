@@ -207,7 +207,6 @@ void GetBezierElements(void *info, const CGPathElement *element)
 #pragma mark - Geometry Workaround
 - (CGRect)calculatedBounds
 {
-    // Thank you Ryan Petrich
     return CGPathGetPathBoundingBox(self.CGPath);
 }
 

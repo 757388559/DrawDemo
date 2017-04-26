@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A42F77B1E71A76B00466818 /* bunny.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A42F77A1E71A76B00466818 /* bunny.png */; };
-		0A42F7DF1E76E9D000466818 /* CGRectCatagery.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42F7DD1E76E9D000466818 /* CGRectCatagery.m */; };
+		0A42F7DF1E76E9D000466818 /* CGGeometryCatagery.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42F7DD1E76E9D000466818 /* CGGeometryCatagery.m */; };
 		0A85D02A1E5B344100416AC8 /* UIImage+Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85D0291E5B344100416AC8 /* UIImage+Customer.m */; };
 		0A85D0331E5C818300416AC8 /* bg20161102.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A85D02F1E5C818300416AC8 /* bg20161102.jpg */; };
 		0A85D0341E5C818300416AC8 /* bunnyLeft.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0A85D0301E5C818300416AC8 /* bunnyLeft.jpeg */; };
@@ -34,8 +34,8 @@
 /* Begin PBXFileReference section */
 		0A42F77A1E71A76B00466818 /* bunny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bunny.png; sourceTree = "<group>"; };
 		0A42F7D61E76D8F500466818 /* Header.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.pch; sourceTree = "<group>"; };
-		0A42F7DD1E76E9D000466818 /* CGRectCatagery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGRectCatagery.m; sourceTree = "<group>"; };
-		0A42F7DE1E76E9D000466818 /* CGRectCatagery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGRectCatagery.h; sourceTree = "<group>"; };
+		0A42F7DD1E76E9D000466818 /* CGGeometryCatagery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGGeometryCatagery.m; sourceTree = "<group>"; };
+		0A42F7DE1E76E9D000466818 /* CGGeometryCatagery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGGeometryCatagery.h; sourceTree = "<group>"; };
 		0A85D0281E5B344100416AC8 /* UIImage+Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Customer.h"; sourceTree = "<group>"; };
 		0A85D0291E5B344100416AC8 /* UIImage+Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Customer.m"; sourceTree = "<group>"; };
 		0A85D02F1E5C818300416AC8 /* bg20161102.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg20161102.jpg; sourceTree = "<group>"; };
@@ -89,8 +89,8 @@
 				0A42F7D61E76D8F500466818 /* Header.pch */,
 				0A8EF8501EACCCE700B56D02 /* Draw-Block.h */,
 				0A8EF8511EACCCE700B56D02 /* Draw-Block.m */,
-				0A42F7DE1E76E9D000466818 /* CGRectCatagery.h */,
-				0A42F7DD1E76E9D000466818 /* CGRectCatagery.m */,
+				0A42F7DE1E76E9D000466818 /* CGGeometryCatagery.h */,
+				0A42F7DD1E76E9D000466818 /* CGGeometryCatagery.m */,
 				0A85D0281E5B344100416AC8 /* UIImage+Customer.h */,
 				0A85D0291E5B344100416AC8 /* UIImage+Customer.m */,
 			);
@@ -266,7 +266,7 @@
 				0AF6AF6C1DDA118E003F3A6D /* ViewController.m in Sources */,
 				0AAB88A01EA65976000D522D /* BezierPathPratice.m in Sources */,
 				0A8EF8621EACD24000B56D02 /* BezierElement.m in Sources */,
-				0A42F7DF1E76E9D000466818 /* CGRectCatagery.m in Sources */,
+				0A42F7DF1E76E9D000466818 /* CGGeometryCatagery.m in Sources */,
 				0A8EF8641EACD24000B56D02 /* UIBezierPath+Elements.m in Sources */,
 				0AF6AF691DDA118E003F3A6D /* AppDelegate.m in Sources */,
 				0AF6AF661DDA118E003F3A6D /* main.m in Sources */,

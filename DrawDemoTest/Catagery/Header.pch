@@ -15,7 +15,7 @@
 @import CoreText;
 @import QuartzCore;
 
-#import "CGRectCatagery.h"
+#import "CGGeometryCatagery.h"
 #import "Draw-Block.h"
 #import "UIBezierPath+Elements.h"
 #import "BezierElement.h"

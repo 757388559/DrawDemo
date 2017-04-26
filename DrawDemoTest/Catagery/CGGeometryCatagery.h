@@ -7,9 +7,8 @@
 //
 
 
-#ifndef CGRectCatagery_h
-#define CGRectCatagery_h
-#import <CoreGraphics/CGGeometry.h>
+#ifndef CGGeometryCatagery_h
+#define CGGeometryCatagery_h
 #import <UIKit/UIGeometry.h>
 #include <stdio.h>
 
