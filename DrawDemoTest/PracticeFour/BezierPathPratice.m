@@ -19,6 +19,7 @@ UIBezierPath *BuildStarPath();
     NSInteger reverse;
     UIImageView *imageView;
     CAShapeLayer *shapeLayer;
+
 }
 
 @end
@@ -46,12 +47,15 @@ UIBezierPath *BuildStarPath();
     }
     // 笑脸
 //    [self createALaughFace:CGRectMake(20, rect.origin.x+rect.size.height/4, 300, 300)];
-    // Drawing code
-    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 100, 100)];
-    path.lineWidth = 2;
-//    AddDashesToPath(path);
+    
+//    [self radarMap];
+//    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 100, 100)];
+//    path.lineWidth = 2;
 //    [path stroke];
-//    RotatePath(path, 45/180);
+    
+    UIBezierPath *path =  BezierPolygon(10);
+    [path stroke];
+    //    RotatePath(path, 45/180);
 //    OffsetPath(path, CGSizeMake(100, 0));
 //    ScalePath(path, 2, 2);
     // Effects
@@ -60,16 +64,16 @@ UIBezierPath *BuildStarPath();
 //    DrawShadow(path, [UIColor orangeColor], CGSizeMake(2, 2), .5);
 //    [path stroke];
 //    ShowPathProgression(path, .5);
-    [path stroke];
-    CGPoint center = RectGetCenter(path.bounds);
-    CGAffineTransform t = CGAffineTransformIdentity;
-    t = CGAffineTransformTranslate(t, center.x, center.y);
-    t = CGAffineTransformConcat(CGAffineTransformMakeScale(.5, .5), t);
-//    t = CGAffineTransformConcat(t, CGAffineTransformMakeScale(.5, .5));
-    t = CGAffineTransformTranslate(t, -center.x, -center.y);
-    [path applyTransform:t];
-    [[UIColor orangeColor] setStroke];
-    [path stroke];
+//    [path stroke];
+    // 平移
+//    CGPoint center = RectGetCenter(path.bounds);
+//    CGAffineTransform t = CGAffineTransformIdentity;
+//    t = CGAffineTransformTranslate(t, center.x, center.y);
+//    t = CGAffineTransformConcat(CGAffineTransformMakeScale(.5, .5), t);
+//    t = CGAffineTransformTranslate(t, -center.x, -center.y);
+//    [path applyTransform:t];
+//    [[UIColor orangeColor] setStroke];
+//    [path stroke];
     
 //    ScalePath(path, .5, .5);
 //    UIBezierPath *be = BezierStarShape(5, 0.75);
@@ -77,15 +81,69 @@ UIBezierPath *BuildStarPath();
 //    be = BezierInflectedShape(5, 0.8);
 //    [be stroke];
     
-
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    [self setNeedsDisplay];
 }
 
+// 添加动画
+- (void)addAnimationWithLayer:(CAShapeLayer *)oShapeLayer path:(UIBezierPath *)path duration:(CGFloat)duration {
+    
+    if (oShapeLayer == nil ) {
+        if (shapeLayer == nil) {
+            shapeLayer = [CAShapeLayer layer];
+        }
+    } else {
+        [shapeLayer removeFromSuperlayer];
+        shapeLayer = nil;
+        shapeLayer = oShapeLayer;
+    }
+    shapeLayer.path = path.CGPath;
+    shapeLayer.fillColor = nil;
+    shapeLayer.strokeColor = [UIColor blackColor].CGColor;
 
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.fromValue = @0;
+    animation.toValue = @1;
+    animation.duration = duration;
+    [shapeLayer addAnimation:animation forKey:nil];
+    [self.layer addSublayer:shapeLayer];
+}
+
+- (void)radarMap {
+
+    CAShapeLayer *pushLayer = [CAShapeLayer layer];
+    pushLayer.frame = CGRectMake(0, 80, self.bounds.size.width, self.bounds.size.width);
+    pushLayer.path = [UIBezierPath bezierPathWithOvalInRect:pushLayer.bounds].CGPath;
+    pushLayer.fillColor = [UIColor blueColor].CGColor;
+    pushLayer.strokeColor = [UIColor orangeColor].CGColor;
+    
+    CABasicAnimation *scaleAnima = [CABasicAnimation animationWithKeyPath:@"transform"];
+    scaleAnima.fromValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 0.0, 0.0, 0.0)];
+    scaleAnima.toValue = [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 1.0, 1.0, 0.0)];
+    
+    CABasicAnimation *opacityAnima = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacityAnima.fromValue = @(0.3);
+    opacityAnima.toValue = @(0.0);
+    
+    CAAnimationGroup *animaGroup = [CAAnimationGroup animation];
+    animaGroup.animations = @[opacityAnima, scaleAnima];
+    animaGroup.duration = 9;
+    animaGroup.autoreverses = NO;
+    animaGroup.repeatCount = HUGE;
+
+//    CAReplicatorLayer *replicatorLayer = [CAReplicatorLayer layer];
+//    replicatorLayer.frame = pushLayer.bounds;
+//    replicatorLayer.instanceCount = 6;
+//    replicatorLayer.instanceDelay = 1.5;
+//    [replicatorLayer addSublayer:pushLayer];
+
+    [pushLayer addAnimation:animaGroup forKey:@"groupAnimation"];
+//    [self.layer addSublayer:replicatorLayer];
+    [self.layer addSublayer:pushLayer];
+}
 
 // Laugh Face
 - (void)createALaughFace:(CGRect)rect {
@@ -99,19 +157,9 @@ UIBezierPath *BuildStarPath();
     CGRect inset = CGRectInset(fullRect, 40, 40);
     UIBezierPath *faceOutline = [UIBezierPath bezierPathWithOvalInRect:inset];
     [bezierPath appendPath:faceOutline];
-    
     // Move in again ,for the mouths and eyes
     CGRect insetAgain = CGRectInset(inset, 80, 80);
-    
-    // Caculate a radius
-    CGPoint refrencePoint = CGPointMake(CGRectGetMinX(insetAgain), CGRectGetMaxY(insetAgain));
-    CGPoint center = RectGetCenter(insetAgain);
-    CGFloat radius = sqrt(pow(refrencePoint.x-center.x, 2) + pow(refrencePoint.y-center.y , 2));
-    
-    // Add a smile 40 degrees around to 140 degrees
-    UIBezierPath *smile = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:140/180.0 * M_PI endAngle:M_PI*40/180 clockwise:NO];
-    [bezierPath appendPath:smile];
-    
+
     // Build Eye1
     CGPoint p1 = CGPointMake(CGRectGetMinX(insetAgain), CGRectGetMinY(insetAgain));
     CGRect eyeRect1 = RectAroundCenter(p1, CGSizeMake(20, 20));
@@ -121,13 +169,33 @@ UIBezierPath *BuildStarPath();
     CGPoint p2 = CGPointMake(CGRectGetMaxX(insetAgain),CGRectGetMinY(insetAgain));
     CGRect eyeRect2 = RectAroundCenter(p2, CGSizeMake(20, 20));
     UIBezierPath *eye2 = [UIBezierPath bezierPathWithRect:eyeRect2]; [bezierPath appendPath:eye2];
+    
+    // Caculate a radius
+    // Add a smile 40 degrees around to 140 degrees
+    CGPoint refrencePoint = CGPointMake(CGRectGetMinX(insetAgain), CGRectGetMaxY(insetAgain));
+    CGPoint center = RectGetCenter(insetAgain);
+    CGFloat radius = sqrt(pow(refrencePoint.x-center.x, 2) + pow(refrencePoint.y-center.y , 2));
+    UIBezierPath *smile = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:140/180.0 * M_PI endAngle:M_PI*40/180 clockwise:NO];
+    [bezierPath appendPath:smile];
+    
     // Draw the complete path
     bezierPath.lineWidth = 4;
     
-    [bezierPath stroke];
-    
+    if (!shapeLayer) {
+        shapeLayer = [CAShapeLayer layer];
+    }
+    shapeLayer.path = bezierPath.CGPath;
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.fromValue = @(0);
+    animation.toValue = @(1);
+    animation.duration = 2;
+    shapeLayer.fillColor = nil;
+    shapeLayer.strokeColor = [UIColor blackColor].CGColor;
+    [shapeLayer addAnimation:animation forKey:nil];
+    [self.layer addSublayer:shapeLayer];
 }
 
+// Small ovals
 - (UIBezierPath *)ovals
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -406,57 +474,57 @@ UIBezierPath *BuildMoofPath()
 // star
 UIBezierPath *BuildStarPath()
 {
-    // Create new path, courtesy of PaintCode (paintcodeapp.com)
+    
     UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-    
     // Move to the start of the path
-    [bezierPath moveToPoint: CGPointMake(883.23, 430.54)];
-    
+    [bezierPath moveToPoint: CGPointMake(369.43, 158.86)];
     // Add the cubic segments
-    [bezierPath addCurveToPoint: CGPointMake(749.25, 358.4)
-                  controlPoint1: CGPointMake(873.68, 370.91)
-                  controlPoint2: CGPointMake(809.43, 367.95)];
-    [bezierPath addCurveToPoint: CGPointMake(668.1, 353.25)
-                  controlPoint1: CGPointMake(721.92, 354.07)
-                  controlPoint2: CGPointMake(690.4, 362.15)];
-    [bezierPath addCurveToPoint: CGPointMake(492.9, 156.15)
-                  controlPoint1: CGPointMake(575.39, 316.25)
-                  controlPoint2: CGPointMake(629.21, 155.47)];
-    [bezierPath addCurveToPoint: CGPointMake(461.98, 169.03)
-                  controlPoint1: CGPointMake(482.59, 160.45)
-                  controlPoint2: CGPointMake(472.29, 164.74)];
-    [bezierPath addCurveToPoint: CGPointMake(365.36, 345.52)
-                  controlPoint1: CGPointMake(409.88, 207.98)
-                  controlPoint2: CGPointMake(415.22, 305.32)];
-    [bezierPath addCurveToPoint: CGPointMake(262.31, 358.4)
-                  controlPoint1: CGPointMake(341.9, 364.44)
-                  controlPoint2: CGPointMake(300.41, 352.37)];
-    [bezierPath addCurveToPoint: CGPointMake(133.48, 460.17)
-                  controlPoint1: CGPointMake(200.89, 368.12)
-                  controlPoint2: CGPointMake(118.62, 376.61)];
-    [bezierPath addCurveToPoint: CGPointMake(277.77, 622.49)
-                  controlPoint1: CGPointMake(148.46, 544.36)
-                  controlPoint2: CGPointMake(258.55, 560.05)];
-    [bezierPath addCurveToPoint: CGPointMake(277.77, 871.12)
-                  controlPoint1: CGPointMake(301.89, 700.9)
-                  controlPoint2: CGPointMake(193.24, 819.76)];
-    [bezierPath addCurveToPoint: CGPointMake(513.51, 798.97)
-                  controlPoint1: CGPointMake(382.76, 934.9)
-                  controlPoint2: CGPointMake(435.24, 786.06)];
-    [bezierPath addCurveToPoint: CGPointMake(723.49, 878.84)
-                  controlPoint1: CGPointMake(582.42, 810.35)
-                  controlPoint2: CGPointMake(628.93, 907.89)];
-    [bezierPath addCurveToPoint: CGPointMake(740.24, 628.93)
-                  controlPoint1: CGPointMake(834.7, 844.69)
-                  controlPoint2: CGPointMake(722.44, 699.2)];
-    [bezierPath addCurveToPoint: CGPointMake(883.23, 430.54)
-                  controlPoint1: CGPointMake(756.58, 564.39)
-                  controlPoint2: CGPointMake(899.19, 530.23)];
+    [bezierPath addCurveToPoint: CGPointMake(308.92296606421985, 126.28057240888413)
+                  controlPoint1: CGPointMake(365.12472902863635, 131.93101084563452)
+                  controlPoint2: CGPointMake(336.10469149376723, 130.59405658721874)];
+    [bezierPath addCurveToPoint: CGPointMake(272.26964239177437, 123.95445266873509)
+                  controlPoint1: CGPointMake(296.57872286067163, 124.32482513221512)
+                  controlPoint2: CGPointMake(282.34196670348763, 127.97434891870138)];
+    [bezierPath addCurveToPoint: CGPointMake(193.13640385311186, 34.929559312739855)
+                  controlPoint1: CGPointMake(230.39497033173211, 107.24252443853811)
+                  controlPoint2: CGPointMake(254.70405080062946, 34.622421172292988)];
+    [bezierPath addCurveToPoint: CGPointMake(179.17065193749863, 40.7471170317922)
+                  controlPoint1: CGPointMake(188.47964763545428, 36.8717563773303)
+                  controlPoint2: CGPointMake(183.82740815515621, 38.80943670456125)];
+    [bezierPath addCurveToPoint: CGPointMake(135.52993556988696, 120.46301468983177)
+                  controlPoint1: CGPointMake(155.63845029443746, 58.339809047094143)
+                  controlPoint2: CGPointMake(158.05038804441728, 102.30573050459074)];
+    [bezierPath addCurveToPoint: CGPointMake(88.984957080108614, 126.28057240888413)
+                  controlPoint1: CGPointMake(124.93366972447015, 129.00868177402978)
+                  controlPoint2: CGPointMake(106.193726419852, 123.55697978109798)];
+    [bezierPath addCurveToPoint: CGPointMake(30.795829677506546, 172.2474085166448)
+                  controlPoint1: CGPointMake(61.243156217981628, 130.67084112233047)
+                  controlPoint2: CGPointMake(24.083957961270684, 134.50555114055675)];
+    [bezierPath addCurveToPoint: CGPointMake(95.967833037915241, 245.56308933625493)
+                  controlPoint1: CGPointMake(37.561902242056576, 210.27382034638222)
+                  controlPoint2: CGPointMake(87.28666383293185, 217.36058126345765)];
+    [bezierPath addCurveToPoint: CGPointMake(95.967833037915241, 357.86273030581913)
+                  controlPoint1: CGPointMake(106.86220354905986, 280.97882697219393)
+                  controlPoint2: CGPointMake(57.787852137954424, 334.66476722736184)];
+    [bezierPath addCurveToPoint: CGPointMake(202.44539955106754, 325.27447025693505)
+                  controlPoint1: CGPointMake(143.38905857543904, 386.67048118479113)
+                  controlPoint2: CGPointMake(167.09289623816167, 319.44336232580406)];
+    [bezierPath addCurveToPoint: CGPointMake(297.28785062611519, 361.3496515473629)
+                  controlPoint1: CGPointMake(233.57023669546953, 330.41451737206046)
+                  controlPoint2: CGPointMake(254.57758215456306, 374.47077357674732)];
+    [bezierPath addCurveToPoint: CGPointMake(304.85338570329895, 248.47186819578107)
+                  controlPoint1: CGPointMake(347.5184868012559, 345.92499346462705)
+                  controlPoint2: CGPointMake(296.81359320336634, 280.21098162107683)];
+    
+    [bezierPath addCurveToPoint: CGPointMake(369.438213206971, 158.86431572040874)
+                  controlPoint1: CGPointMake(312.23373454874269, 219.32084527748614)
+                  controlPoint2: CGPointMake(376.6469260327533, 203.8916704573908)];
     
     // Close the path. It’s now ready to draw
     [bezierPath closePath];
     return bezierPath;
 }
+
 
 
 - (void)setUpView {
@@ -611,9 +679,9 @@ UIBezierPath *BezierPolygon(NSUInteger numberOfSides) {
     }
     UIBezierPath *path = [UIBezierPath bezierPath];
     // Use a unit rectangle as the destination
-    CGRect destinationRect = CGRectMake(0, 0, 100, 100);
+    CGRect destinationRect = CGRectMake(0, 0, 300, 300);
     CGPoint center = RectGetCenter(destinationRect);
-    CGFloat r = 10.0f; // radius
+    CGFloat r = 90.0f; // radius
     BOOL firstPoint = YES;
     for (int i = 0; i < (numberOfSides - 1); i++)
     {

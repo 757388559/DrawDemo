@@ -12,7 +12,7 @@ UIBezierPath *BezierPathWithElements(NSArray *elements);
 UIBezierPath *BezierPathWithPoints(NSArray *points);
 UIBezierPath *InterpolatedPath(UIBezierPath *path);
 
-// Partial paths
+// Partial paths (accord elementType)
 UIBezierPath *CroppedPath(UIBezierPath *path, CGFloat percent);
 UIBezierPath *PathFromPercentToPercent(UIBezierPath *path, CGFloat startPercent, CGFloat endPercent);
 
