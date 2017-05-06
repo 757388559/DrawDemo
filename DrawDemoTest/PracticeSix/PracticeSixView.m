@@ -8,28 +8,55 @@
 //
 
 #import "PracticeSixView.h"
+#import "Gradient.h"
+
 
 @implementation PracticeSixView
 
 
 - (void)drawRect:(CGRect)rect {
     
+    
     UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 300, 300)];
-    [path addClip];
+    path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(150, 150) radius:100 startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+//    CGPoint p1 = RectGetPointAtPercents(path.bounds, .5, .5);
+//    CGPoint p2 = RectGetPointAtPercents(path.bounds, .7, .5);
     
-    CGColorSpaceRef colSpaceRef = CGColorSpaceCreateDeviceRGB();
-    NSArray *arr = @[(id)[UIColor greenColor].CGColor , (id)[UIColor orangeColor].CGColor];
-    CGFloat locations[2];
-    locations[0] = 0;
-    locations[1] = 1;
-//    locations[2] = 1;
-//    locations[3] = 1;
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGGradientRef gradientRef = CGGradientCreateWithColors(colSpaceRef, (__bridge CFArrayRef) arr, locations);
+    [path fill:[UIColor greenColor]];
+//    [path addClip];
+//    [grandient drawLinerFromPoint:p1 toPoint:p2];
     
-//    CGContextDrawLinearGradient(context, gradientRef, CGPointMake(0, 0), CGPointMake(300, 0), 0);
+
     
-    CGContextDrawRadialGradient(context, gradientRef, CGPointMake(30, 30), 20, CGPointMake(150, 150), 50, 0);
+
+}
+
+#pragma mark - Ease Test
+
+- (void)easeTest {
+    
+    
+//    InterpolationBlock block =  ^CGFloat(CGFloat percent) {
+//        CGFloat skippingPercent = 0.75;
+//        if (percent < skippingPercent) return 0;
+//        
+//        CGFloat scaled = (percent - skippingPercent) * (1 / (1 - skippingPercent));
+//        return cosf(scaled * M_PI);
+//        return sinf(scaled * M_PI);
+//    };
+    
+    
+    InterpolationBlock block = ^CGFloat (CGFloat percent) {
+        CGFloat skippingPercent = 0.5;
+        if (percent < skippingPercent) return 0;
+        CGFloat scaled = (percent - skippingPercent) * (1 / (1 - skippingPercent));
+        return EaseInOut(scaled, 3);
+        return EaseOut(scaled, 3);
+        return EaseIn(scaled, 3);
+    };
+    
+    Gradient *gra = [Gradient gradientUsingInterpolationBlock:block betweenColor:White_Levels(0, 0) andColor:White_Levels(0, 1)];
+    CGContextDrawRadialGradient(UIGraphicsGetCurrentContext(), gra.gradient, CGPointMake(150, 150) , 0, CGPointMake(150, 150), 100 , 0);
 }
 
 

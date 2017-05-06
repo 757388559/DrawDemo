@@ -45,6 +45,7 @@ UIBezierPath *BuildStarPath();
     if (shapeLayer) {
         [shapeLayer removeFromSuperlayer];
     }
+    
     // 笑脸
 //    [self createALaughFace:CGRectMake(20, rect.origin.x+rect.size.height/4, 300, 300)];
     

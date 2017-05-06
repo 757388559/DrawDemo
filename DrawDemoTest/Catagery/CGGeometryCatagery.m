@@ -41,6 +41,9 @@ CGPoint PointSubtractPoint(CGPoint p1, CGPoint p2)
     return CGPointMake(p1.x - p2.x, p1.y - p2.y);
 }
 
+CGPoint RectGetPointAtPercents(CGRect rect , CGFloat percentX , CGFloat percentY) {
+    return (CGPoint){rect.origin.x + rect.size.width * percentX , rect.origin.y + rect.size.height * percentY};
+}
 
 CGRect RectMakeWithOrigin(CGPoint origin ,CGSize size) {
     return CGRectMake(origin.x, origin.y, size.width, size.height);

@@ -32,7 +32,7 @@ CGFloat RadiansFromDegrees(CGFloat degrees);
 CGFloat PointDistanceFromPoint(CGPoint p1, CGPoint p2);
 CGPoint PointAddPoint(CGPoint p1, CGPoint p2);
 CGPoint PointSubtractPoint(CGPoint p1, CGPoint p2);
-
+CGPoint RectGetPointAtPercents(CGRect rect , CGFloat percentX , CGFloat percentY);
 /**
  通过原点的大小生成CGRect
  
