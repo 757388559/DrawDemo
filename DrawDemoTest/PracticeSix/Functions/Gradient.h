@@ -14,16 +14,6 @@ typedef __attribute__((NSObject)) CGGradientRef GradientObject;
 typedef CGFloat(^InterpolationBlock)(CGFloat);
 
 
-
-UIColor * InterploateBetweenColors(UIColor *color1 , UIColor *color2 ,CGFloat amt);
-#pragma mark - Easing Functions
-// Ease only the begin
-CGFloat EaseIn(CGFloat currentTime , int factor);
-// Ease only the end
-CGFloat EaseOut(CGFloat currentTime , int factor);
-// Ease both beginning and end
-CGFloat EaseInOut(CGFloat currentTime, int factor);
-
 @interface Gradient : NSObject
 
 /// <#Description#>.
@@ -70,8 +60,40 @@ CGFloat EaseInOut(CGFloat currentTime, int factor);
 
 + (Gradient *)gradientUsingInterpolationBlock:(InterpolationBlock)block betweenColor:(UIColor *)color1 andColor:(UIColor *)color2;
 
+/**
+ 线性渐变从上到下
 
+ @param rect 目标矩形
+ */
+- (void)drawTopToBottom:(CGRect)rect;
 
+/**
+ 线性渐变从下到上
+
+ @param rect 目标矩形
+ */
+- (void)drawBottomToTop:(CGRect)rect;
 
 
 @end
+
+
+UIColor * InterploateBetweenColors(UIColor *color1 , UIColor *color2 ,CGFloat amt);
+#pragma mark - Easing Functions
+// Ease only the begin
+CGFloat EaseIn(CGFloat currentTime , int factor);
+// Ease only the end
+CGFloat EaseOut(CGFloat currentTime , int factor);
+// Ease both beginning and end
+CGFloat EaseInOut(CGFloat currentTime, int factor);
+// Change color brightness
+UIColor *ScaleColorBrightness(UIColor *color , CGFloat amount);
+//
+void DrawStrokedShadowedShape(UIBezierPath *path, UIColor *baseColor, CGRect dest);
+//
+void DrawGradientOverTexture(UIBezierPath *path, UIImage *texture, Gradient *gradient, CGFloat alpha);
+
+
+
+
+

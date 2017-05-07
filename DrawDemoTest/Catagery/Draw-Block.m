@@ -22,7 +22,7 @@ void PushDraw(DrawingStateBlock block)
     if (!block) return; // nothing to do
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    if (context == NULL) NSLog(@"No context to draw into");
+    if (context == NULL) {NSLog(@"No context to draw into");return;}
     
     CGContextSaveGState(context);
     block();
@@ -36,8 +36,7 @@ void PushLayerDraw(DrawingStateBlock block)
     if (!block) return; // nothing to do
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    if (context == NULL) NSLog(@"No context to draw into");
-    
+    if (context == NULL) {NSLog(@"No context to draw into"); return;}
     CGContextBeginTransparencyLayer(context, NULL);
     block();
     CGContextEndTransparencyLayer(context);

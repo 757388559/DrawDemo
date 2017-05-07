@@ -103,6 +103,24 @@
 }
 
 
+- (void)drawBottomToTop:(CGRect)rect {
+    
+    CGPoint startPoint = (CGPoint){rect.origin.x + rect.size.width/2.0 , rect.origin.y + rect.size.height};
+    CGPoint endPoint = {rect.origin.x + rect.size.width/2.0 , rect.origin.y};;
+    
+    [self drawLinerFromPoint:startPoint toPoint:endPoint];
+}
+
+- (void)drawTopToBottom:(CGRect)rect {
+    
+    CGPoint startPoint = {rect.origin.x + rect.size.width/2.0 , rect.origin.y};;
+    CGPoint endPoint = (CGPoint){rect.origin.x + rect.size.width/2.0 , rect.origin.y + rect.size.height};
+    
+    [self drawLinerFromPoint:startPoint toPoint:endPoint];
+    
+}
+
+
 @end
 
 
@@ -135,7 +153,7 @@ UIColor *InterploateBetweenColors(UIColor *color1 , UIColor *color2 ,CGFloat amt
 }
 
 #pragma mark - Easing Functions
-// Ease only the begin
+// Ease only the begin (factor 指数 1/2/3)
 CGFloat EaseIn(CGFloat currentTime , int factor) {
     return powf(currentTime, factor);
 }
@@ -158,5 +176,80 @@ CGFloat EaseInOut(CGFloat currentTime, int factor) {
     return 0.5 * (2.0 - pow(currentTime, factor));
 
 }
+
+UIColor * ScaleColorBrightness(UIColor *color , CGFloat amount) {
+    
+    if (!color) {
+        return [UIColor blackColor];
+    }
+    
+    CGFloat h ,s ,v ,a;
+    [color getHue:&h saturation:&s brightness:&v alpha:&a];
+    CGFloat v1 = fmaxf(fminf(v * amount, 1), 0);
+    
+    return [UIColor colorWithHue:h saturation:s brightness:v1 alpha:a];
+}
+
+void DrawStrokedShadowedShape(UIBezierPath *path, UIColor *baseColor, CGRect dest) {
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (!context) {
+        NSLog(@"Error：No context to draw to");
+        return;
+    }
+    
+    PushDraw(^{
+        CGContextSetShadow(context, CGSizeMake(4,4), 4);
+        // Draw letter gradient (to half brighness)
+        PushLayerDraw(^{
+            Gradient *gradient = [Gradient gradientColorFrom:baseColor to:ScaleColorBrightness(baseColor, .5)];
+            [path addClip];
+            [gradient drawTopToBottom:path.bounds];
+            
+            
+            // Add the inner shadow with dark color
+            PushDraw(^{
+                CGContextSetBlendMode(context, kCGBlendModeMultiply);
+                DrawInnerShadow(path, ScaleColorBrightness(baseColor, 0.3), CGSizeMake(0, -2), 2);
+            });
+            
+            // Stroke with reversed gray gadient
+            PushDraw(^{
+                [path clipToStroke:6];
+                [path.inverse addClip];
+                Gradient *grayGradient = [Gradient gradientColorFrom:White_Levels(0, 1) to:White_Levels(0.5, 1)];
+                [grayGradient drawTopToBottom:dest];
+            });
+            
+        });
+       
+    });
+
+}
+
+void DrawGradientOverTexture(UIBezierPath *path, UIImage *texture, Gradient *gradient, CGFloat alpha) {
+    
+    if (!path || !texture || !gradient ) {
+        NSLog(@"Error： Param error");
+        return;
+    }
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (context == NULL) { NSLog(@"Error: No Context to Draw");return;}
+        
+    CGRect rect = path.bounds; PushDraw(^{
+        CGContextSetAlpha(context, alpha); [path addClip];
+        PushLayerDraw(^{
+            [texture drawInRect:rect]; CGContextSetBlendMode(
+                                                             context, kCGBlendModeColor); [gradient drawTopToBottom:rect];
+        }); });
+    
+}
+
+
+
+
+
+
+
 
 
