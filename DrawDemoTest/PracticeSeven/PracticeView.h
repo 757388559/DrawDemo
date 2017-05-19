@@ -10,4 +10,7 @@
 
 @interface PracticeView : UIView
 
+/// .
+@property (nonatomic , strong) UIImageView *imageView;
+
 @end

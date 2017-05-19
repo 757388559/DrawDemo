@@ -13,5 +13,6 @@ void PushLayerDraw(DrawingStateBlock block);
 
 // Image
 UIImage *ImageWithBlock(DrawingBlock block, CGSize size);
-
+// Creating an Image from a Drawing Block
+UIImage *DrawIntoImage(CGSize size , DrawingStateBlock block);
 

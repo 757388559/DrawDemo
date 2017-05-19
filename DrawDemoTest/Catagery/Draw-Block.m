@@ -17,6 +17,17 @@ UIImage *ImageWithBlock(DrawingBlock block, CGSize size)
     return image;
 }
 
+UIImage *DrawIntoImage(CGSize size , DrawingStateBlock block) {
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    if (block) {
+        block();
+    }
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 void PushDraw(DrawingStateBlock block)
 {
     if (!block) return; // nothing to do

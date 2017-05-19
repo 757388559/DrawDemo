@@ -209,10 +209,10 @@
 		0AF6AF631DDA118E003F3A6D /* DrawDemoTest */ = {
 			isa = PBXGroup;
 			children = (
+				0AAB889B1EA65976000D522D /* PracticeThree */,
+				0AAB88961EA65976000D522D /* PracticeFour */,
 				0A4149A61EBAD2D30023CBFA /* PracticeSix */,
 				0A4149931EBACB850023CBFA /* PracticeSeven */,
-				0AAB88961EA65976000D522D /* PracticeFour */,
-				0AAB889B1EA65976000D522D /* PracticeThree */,
 				0A85D02E1E5BF28400416AC8 /* Resource */,
 				0A4875371E4E0E2000C7A333 /* Catagery */,
 				0AF6AF671DDA118E003F3A6D /* AppDelegate.h */,
